@@ -164,7 +164,7 @@ function mod(id){
   var m=mods.filter(function(x){return x.id==id})[0];
   if(!m){$("app").innerHTML='<div class="empty">المود غير موجود</div>';return}
   var h='<div class="hero" style="'+bg(m)+'">'+cov(m,1)+'</div>';
-  h+='<div class="box"><div class="row"><span class="pill">MODS • ADDONS</span><span class="pill" style="color:var(--y);border-color:#ffc10766;background:#ffc1071a">✨ مميز</span></div><h2 style="margin-top:12px">'+esc(m.title)+'</h2><div class="row"><span class="pill" style="color:var(--g);border-color:#19ff6b66;background:#19ff6b1a">'+esc((CATS[m.cat]||["مود"])[0])+'</span><span class="pill" style="color:var(--b);border-color:#3da5ff66;background:#3da5ff1a">👁 '+m.views+'</span><span class="pill" style="color:var(--g);border-color:#19ff6b66;background:#19ff6b1a">⬇ '+(m.dls||0)+'</span><button class="heart '+(likes[m.id]?"on":"")+'" style="position:static" onclick="like('+m.id+',event)">'+(likes[m.id]?"♥":"♡")+'</button></div></div>';
+  h+='<div class="box"><div class="row"><span class="pill">MODS • ADDONS</span><span class="pill" style="color:var(--y);border-color:#ffc10766;background:#ffc1071a">✨ مميز</span></div><h2 style="margin-top:12px">'+esc(m.title)+'</h2><div class="row"><span class="pill" style="color:var(--g);border-color:#19ff6b66;background:#19ff6b1a">'+esc((CATS[m.cat]||["مود"])[0])+'</span><span id="pv" class="pill" style="color:var(--b);border-color:#3da5ff66;background:#3da5ff1a">👁 '+m.views+'</span><span id="pd" class="pill" style="color:var(--g);border-color:#19ff6b66;background:#19ff6b1a">⬇ '+(m.dls||0)+'</span><button class="heart '+(likes[m.id]?"on":"")+'" style="position:static" onclick="like('+m.id+',event)">'+(likes[m.id]?"♥":"♡")+'</button></div></div>';
   h+='<div class="box"><h2 style="margin-top:0;font-size:16px">🌐 تفاصيل ووصف المود</h2><p style="line-height:1.9;color:#cfd5e2">'+esc(m.desc)+'</p></div>';
   h+='<div class="box"><div class="info"><div class="in c-g"><small>التوافق</small><b>'+esc(m.compat)+'</b></div><div class="in c-r"><small>اسم المود</small><b>'+esc(m.title)+'</b></div><div class="in c-b"><small>مود ID</small><b>#'+m.id+'</b></div><div class="in c-y"><small>إصدار اللعبة</small><b>'+esc(m.ver)+'</b></div><div class="in c-p"><small>Edition</small><b>'+esc(m.edition)+'</b></div><div class="in c-g"><small>الفئة والتصنيف</small><b>'+esc((CATS[m.cat]||["مود"])[0])+'</b></div></div><div class="ver">🛡️ تم الفحص والتوثيق بواسطة LD Team — آمن وخالٍ من أي مشاكل</div></div>';
   var cs=[[m.c1,m.c2],[m.c2,m.c1],["#1b5e20","#19ff6b"],["#b3001b","#ff2a3d"]];
@@ -203,17 +203,19 @@ function delMod(id){if(confirm("حذف المود؟")){mods=mods.filter(function
 var seen={};
 function route(keep){
   var h=location.hash.replace("#","");
-  if(h.indexOf("mod-")==0){var id=h.slice(4);var m=mods.filter(function(x){return x.id==id})[0];if(m&&!seen[id]&&!keep){seen[id]=1;m.views++;fbView(id)}mod(id)}
+  if(h.indexOf("mod-")==0){var id=h.slice(4);var m=mods.filter(function(x){return x.id==id})[0];if(m&&!seen[id]&&!keep){seen[id]=1;m.views++;window.vp=fbView(id)}mod(id);updCounts(id)}
   else if(h=="login")loginPage();
-  else if(h=="admin")adminPage();
+  else if(h=="admin"){adminPage();if(admin)refreshStats()}
   else home();
   if(!keep)scrollTo(0,0);
 }
 window.addEventListener("hashchange",function(){route()});
 var stats={};
 async function api(a,fd){var r=await fetch("?api="+a,fd?{method:"POST",body:fd}:{});return r.json()}
-async function loadAll(){try{var j=await api("list");mods=j.mods;admin=j.admin;stats=j.stats||{}}catch(e){toast("تعذر تحميل البيانات")}}
-function statsHtml(){var s=stats||{};var it=[["👥 دخول اليوم",s.today,"c-g"],["🌍 إجمالي الدخول",s.total,"c-r"],["👁 مشاهدات المودات",s.views,"c-b"],["⬇ إجمالي التحميلات",s.dls,"c-y"],["📦 عدد الملفات",s.files,"c-p"]];return '<div class="info">'+it.map(function(x){return '<div class="in '+x[2]+'"><small>'+x[0]+'</small><b style="font-size:24px">'+(x[1]||0)+'</b></div>'}).join("")+'</div>'}
+function statsInner(){var s=stats||{};function v(x){return x==null?"—":x}var it=[["👥 دخول اليوم",s.today,"c-g"],["🌍 إجمالي الدخول",s.total,"c-r"],["👁 مشاهدات المودات",s.views,"c-b"],["⬇ إجمالي التحميلات",s.dls,"c-y"],["📦 عدد الملفات",s.files,"c-p"]];return '<div class="info">'+it.map(function(x){return '<div class="in '+x[2]+'"><small>'+x[0]+'</small><b style="font-size:24px">'+v(x[1])+'</b></div>'}).join("")+'</div>'}
+function statsHtml(){return '<div id="stw">'+statsInner()+'</div><button class="btn d" style="margin-top:10px" onclick="refreshStats(1)">🔄 تحديث الأرقام</button>'}
+async function refreshStats(m){var r=await Promise.all(["total","views","dls","days_"+td()].map(cget));stats.total=r[0];stats.views=r[1];stats.dls=r[2];stats.today=r[3];var el=$("stw");if(el)el.innerHTML=statsInner();if(r.indexOf(null)>-1)toast("تعذر الاتصال بخدمة العداد، جرّب بعد قليل");else if(m)toast("تم التحديث ✅")}
+async function updCounts(id){try{await window.vp}catch(e){}window.vp=null;var v=await cget("m_"+id+"_v"),d=await cget("m_"+id+"_d"),a=$("pv"),b=$("pd");if(a&&v!=null)a.textContent="👁 "+v;if(b&&d!=null)b.textContent="⬇ "+d}
 function dlAll(id){var m=mods.filter(function(x){return x.id==id})[0];if(!m||!m.files||!m.files.length){toast("لا يوجد ملف لهذا المود");return}m.dls=(m.dls||0)+1;m.files.forEach(function(f,i){setTimeout(function(){var a=document.createElement("a");a.href="?dl="+id+"&f="+i+"&c="+(i==0?1:0);a.download=f.n;document.body.appendChild(a);a.click();a.remove()},i*900)});toast("بدأ التحميل ⬇")}
 function fl(e){return e.id?(e.files||[]).map(function(f,i){return '<div class="arow"><span>📦 '+esc(f.n)+'</span><button class="btn" onclick="delFile('+e.id+','+i+')">✕</button></div>'}).join(""):""}
 async function delFile(id,i){await api("delfile&id="+id+"&i="+i,new FormData());await loadAll();adminPage()}
@@ -233,24 +235,24 @@ async function delMod(id){if(confirm("حذف المود مع ملفاته؟")){a
 function logout(){api("logout",new FormData()).then(function(){admin=false;stats={};go("")})}
 async function doLogin(){var fd=new FormData();fd.append("email",$("em").value);fd.append("pass",$("pw").value);var j=await api("login",fd);if(j.ok){await loadAll();go("admin")}else $("err").textContent="الإيميل أو كلمة السر غير صحيحة"}
 
-var FB_URL=""; /* رابط Firebase Realtime Database للإحصائيات، مثل https://xxxx-default-rtdb.firebaseio.com */
+var CNS="ld"+location.hostname.replace(/[^a-z0-9]/gi,"").toLowerCase().slice(0,40),CNT="https://abacus.jasoncameron.dev";
 var EMAIL="Ld_adddon@gmial.com",PASS="12345678",PKX=["mcaddon","mcpack","mcworld","mctemplate","zip"];
 var cfg={};try{cfg=JSON.parse(localStorage.getItem("ld_gh"))||{}}catch(e){}
 try{admin=sessionStorage.getItem("ld_a")==="1"}catch(e){}
 function td(){var d=new Date();return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2)}
-function fbInc(p){if(!FB_URL)return;try{fetch(FB_URL+"/"+p+".json",{method:"PUT",body:JSON.stringify({".sv":{"increment":1}})})}catch(e){}}
-function fbView(id){var k="vw"+id;try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,1)}catch(e){}fbInc("stats/views");fbInc("m/"+id+"/v")}
+function ck(p){return p.replace(/^stats\//,"").replace(/\//g,"_")}
+function fbInc(p){try{return fetch(CNT+"/hit/"+CNS+"/"+ck(p)).catch(function(){})}catch(e){return Promise.resolve()}}
+async function cget(k){try{var r=await fetch(CNT+"/get/"+CNS+"/"+k);if(r.status==404)return 0;if(!r.ok)return null;var j=await r.json();return j.value||0}catch(e){return null}}
+function fbView(id){var k="vw"+id;try{if(sessionStorage.getItem(k))return Promise.resolve();sessionStorage.setItem(k,1)}catch(e){}return Promise.all([fbInc("stats/views"),fbInc("m/"+id+"/v")])}
 async function loadAll(){
   try{var r=await fetch("mods.json?t="+Date.now());mods=r.ok?await r.json():[]}catch(e){mods=[]}
   if(!Array.isArray(mods))mods=[];
-  var fb={};if(FB_URL){try{fb=(await (await fetch(FB_URL+"/.json")).json())||{}}catch(e){}}
-  var st=fb.stats||{};
-  mods.forEach(function(m){var x=(fb.m||{})[m.id]||{};m.views=x.v||0;m.dls=x.d||0});
-  stats={today:(st.days||{})[td()]||0,total:st.total||0,views:st.views||0,dls:st.dls||0,files:mods.reduce(function(a,m){return a+(m.files||[]).length},0)};
+  mods.forEach(function(m){m.views=0;m.dls=0});
+  stats.files=mods.reduce(function(a,m){return a+(m.files||[]).length},0);
 }
-function dlAll(id){var m=mods.filter(function(x){return x.id==id})[0];if(!m||!m.files||!m.files.length){toast("لا يوجد ملف لهذا المود");return}m.dls=(m.dls||0)+1;fbInc("stats/dls");fbInc("m/"+id+"/d");m.files.forEach(function(f,i){setTimeout(function(){var a=document.createElement("a");a.href=f.p;a.download=f.n;document.body.appendChild(a);a.click();a.remove()},i*900)});toast("بدأ التحميل ⬇")}
+function dlAll(id){var m=mods.filter(function(x){return x.id==id})[0];if(!m||!m.files||!m.files.length){toast("لا يوجد ملف لهذا المود");return}m.dls=(m.dls||0)+1;fbInc("stats/dls");fbInc("m/"+id+"/d");var pd=$("pd");if(pd)pd.textContent="⬇ "+m.dls;m.files.forEach(function(f,i){setTimeout(function(){var a=document.createElement("a");a.href=f.p;a.download=f.n;document.body.appendChild(a);a.click();a.remove()},i*900)});toast("بدأ التحميل ⬇")}
 function f2(id,l,v,t){return '<label class="fld">'+l+'<input id="'+id+'" type="'+(t||"text")+'" value="'+esc(v||"")+'"></label>'}
-function ghBox(){return '<div class="box"><h3>⚙️ ربط GitHub (مرة واحدة)</h3>'+f2("g_o","اسم حسابك في GitHub",cfg.o)+f2("g_r","اسم الـ Repository",cfg.r)+f2("g_b","Branch (مثل main)",cfg.b||"main")+f2("g_t","Token",cfg.t,"password")+'<button class="btn g" style="margin-top:12px" onclick="saveGh()">حفظ الإعدادات</button>'+(FB_URL?'':'<p style="color:var(--y);font-size:12px;margin-top:10px">الإحصائيات غير مفعّلة: تحتاج رابط Firebase داخل FB_URL</p>')+'</div>'}
+function ghBox(){return '<div class="box"><h3>⚙️ ربط GitHub (مرة واحدة)</h3>'+f2("g_o","اسم حسابك في GitHub",cfg.o)+f2("g_r","اسم الـ Repository",cfg.r)+f2("g_b","Branch (مثل main)",cfg.b||"main")+f2("g_t","Token",cfg.t,"password")+'<button class="btn g" style="margin-top:12px" onclick="saveGh()">حفظ الإعدادات</button>'+'</div>'}
 function saveGh(){cfg={o:$("g_o").value.trim(),r:$("g_r").value.trim(),b:$("g_b").value.trim()||"main",t:$("g_t").value.trim()};try{localStorage.setItem("ld_gh",JSON.stringify(cfg))}catch(e){}toast("تم الحفظ ✅")}
 function ghU(p){return "https://api.github.com/repos/"+cfg.o+"/"+cfg.r+"/contents/"+p}
 function ghH(){return {Authorization:"Bearer "+cfg.t,Accept:"application/vnd.github+json"}}
