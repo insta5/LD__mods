@@ -1,5 +1,28 @@
 [
  {
+  "id": 8,
+  "title": "3D relic totem",
+  "sub": "",
+  "desc": "يغير شكل التوتم إلى 3D",
+  "cat": "resource",
+  "ver": "1.26.52",
+  "edition": "BEDROCK",
+  "compat": "1.26.50 - 1.26.60",
+  "em": "creeper",
+  "c1": "#ff2a3d",
+  "c2": "#19ff6b",
+  "img": "img/mvikujw3d810.jpg",
+  "shots": [],
+  "files": [
+   {
+    "n": "CURyDRXJbu (1).mcpack",
+    "p": "files/mvikumwcd95d.mcpack",
+    "s": 1714994
+   }
+  ],
+  "pub": "aaa"
+ },
+ {
   "id": 7,
   "title": "CustomNetherFortals",
   "sub": "",
