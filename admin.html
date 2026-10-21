@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>LD Admin</title>
+<style>
+:root{--bg:#06070a;--card:#0d1016;--line:#1b202b;--tx:#f2f4f8;--mu:#8a93a6;--r:#ff2a3d;--g:#19ff6b;--b:#3da5ff;--y:#ffc107;--p:#b66dff;color-scheme:dark}
+*{box-sizing:border-box;margin:0;font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif}
+body{background:var(--bg);color:var(--tx);min-height:100vh;padding-top:env(safe-area-inset-top,0px)}
+button,input,textarea,select{font:inherit;color:inherit}
+main{max-width:800px;margin:0 auto;padding:16px 14px 50px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin-top:14px}
+h2{font-size:20px;margin:6px 0 4px}h3{margin-bottom:6px}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:0;border-radius:12px;padding:12px 18px;font-weight:700;cursor:pointer;background:linear-gradient(135deg,var(--r),#b3001b)}
+.btn.g{background:linear-gradient(135deg,var(--g),#00a844);color:#031a0b}.btn.d{background:#1b202b}
+.fld{display:block;margin-top:12px;font-size:13px;color:var(--mu)}
+.fld input,.fld textarea,.fld select{display:block;width:100%;margin-top:6px;background:#0a0c11;border:1px solid var(--line);border-radius:12px;padding:12px;outline:0;direction:ltr;text-align:left}
+.fld textarea{direction:rtl;text-align:right;min-height:80px}
+.login{max-width:400px;margin:50px auto;text-align:center}
+.err{color:var(--r);font-size:13px;margin-top:10px;min-height:18px}
+.arow{display:flex;gap:8px;align-items:center;padding:10px;border:1px solid var(--line);border-radius:12px;margin-top:8px;background:#0a0c11}.arow span{flex:1;font-size:14px;word-break:break-word}
+.info{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px}
+.in{border-radius:14px;padding:12px;border:1px solid var(--line);background:#0a0c11}.in small{display:block;color:var(--mu);font-size:11px;margin-bottom:5px}.in b{font-size:22px}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#0d1016;border:1px solid var(--g);padding:12px 20px;border-radius:12px;z-index:50;font-size:14px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script>
+var FBK="AIzaSyBwtU1sfXOet8JpjKyVa7TqQ6Goy_8nCME",FBDB="https://ldmods-d5b7b-default-rtdb.firebaseio.com",EMAIL="ld_adddon@gmial.com";
+var CNT="https://abacus.jasoncameron.dev",CNS="ld"+location.hostname.replace(/[^a-z0-9]/gi,"").toLowerCase().slice(0,40);
+var CATS={mods:"مودات",skins:"سكنات",maps:"خرائط",resource:"ريسورس باك",servers:"سيرفرات"};
+var COVERS=["creeper","diamond","orb","flame","totem","chest","sword","pickaxe","map","skin","frame","crown","grass","heart","anvil","star","emerald","tnt"];
+var PKX=["mcaddon","mcpack","mcworld","mctemplate","zip"];
+var mods=[],edit=null,stats={},S=null,cfg={};
+function $(i){return document.getElementById(i)}
+function J(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}}
+function W(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function toast(t){var d=document.createElement("div");d.className="toast";d.textContent=t;document.body.appendChild(d);setTimeout(function(){d.remove()},2800)}
+S=J("ldadm_s");cfg=J("ld_gh")||{};
+function isAdmin(){return !!S&&S.e===EMAIL}
+/* ===== Firebase ===== */
+async function au(m,e,p){var r=await fetch("https://identitytoolkit.googleapis.com/v1/accounts:"+m+"?key="+FBK,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:e,password:p,returnSecureToken:true})});var j=await r.json();if(j.error)throw new Error(j.error.message);return j}
+async function tok(){if(!S)return null;if(Date.now()>S.x){try{var r=await fetch("https://securetoken.googleapis.com/v1/token?key="+FBK,{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:"grant_type=refresh_token&refresh_token="+S.r});var j=await r.json();if(j.error)throw 0;S.t=j.id_token;S.r=j.refresh_token;S.x=Date.now()+(+j.expires_in-60)*1000;W("ldadm_s",S)}catch(e){S=null;return null}}return S.t}
+async function db(m,p,b){var t=await tok(),r=await fetch(FBDB+"/"+p+".json"+(t?"?auth="+t:""),{method:m,body:b===undefined?undefined:JSON.stringify(b)});if(!r.ok)throw new Error("db "+r.status);return r.json()}
+function errTxt(m){var t={INVALID_EMAIL:"الإيميل غير صحيح",INVALID_LOGIN_CREDENTIALS:"الإيميل أو كلمة السر غير صحيحة",EMAIL_NOT_FOUND:"الحساب غير موجود",INVALID_PASSWORD:"كلمة السر غير صحيحة",MISSING_PASSWORD:"اكتب كلمة السر"};for(var k in t)if(String(m).indexOf(k)==0)return t[k];return "خطأ: "+m}
+/* ===== login ===== */
+function loginPage(){$("app").innerHTML='<div class="box login"><h2>🔐 دخول لوحة التحكم</h2><label class="fld">الإيميل<input id="em" type="email" autocomplete="off"></label><label class="fld">كلمة السر<input id="pw" type="password" autocomplete="off"></label><div class="err" id="err"></div><button class="btn g" style="width:100%;margin-top:6px" onclick="doLogin()">دخول</button></div>'}
+async function doLogin(){
+  var e=$("em").value.trim().toLowerCase(),p=$("pw").value,er=$("err");er.textContent="...";
+  if(e!==EMAIL){er.textContent="هذا الحساب ليس أدمن";return}
+  try{var j=await au("signInWithPassword",e,p);S={t:j.idToken,r:j.refreshToken,u:j.localId,e:(j.email||"").toLowerCase(),x:Date.now()+(+j.expiresIn-60)*1000};W("ldadm_s",S);await start()}
+  catch(x){er.textContent=errTxt(x.message)}
+}
+function logout(){S=null;try{localStorage.removeItem("ldadm_s")}catch(e){}loginPage()}
+/* ===== GitHub ===== */
+function ghU(p){return "https://api.github.com/repos/"+cfg.o+"/"+cfg.r+"/contents/"+p}
+function ghH(){return {Authorization:"Bearer "+cfg.t,Accept:"application/vnd.github+json"}}
+async function ghSha(p){var g=await fetch(ghU(p)+"?ref="+cfg.b,{headers:ghH()});return g.ok?(await g.json()).sha:undefined}
+async function ghPut(p,c,msg){var b={message:msg,content:c,branch:cfg.b},s=await ghSha(p);if(s)b.sha=s;var r=await fetch(ghU(p),{method:"PUT",headers:ghH(),body:JSON.stringify(b)});if(!r.ok)throw new Error("gh "+r.status)}
+async function ghDel(p){try{var s=await ghSha(p);if(s)await fetch(ghU(p),{method:"DELETE",headers:ghH(),body:JSON.stringify({message:"delete",sha:s,branch:cfg.b})})}catch(e){}}
+function b64f(f){return new Promise(function(ok){var r=new FileReader();r.onload=function(){ok(r.result.split(",")[1])};r.readAsDataURL(f)})}
+function rd(file,w){return new Promise(function(ok){var r=new FileReader();r.onload=function(){var im=new Image();im.onload=function(){var k=Math.min(1,w/im.width),c=document.createElement("canvas");c.width=im.width*k;c.height=im.height*k;c.getContext("2d").drawImage(im,0,0,c.width,c.height);ok(c.toDataURL("image/jpeg",.72))};im.onerror=function(){ok(null)};im.src=r.result};r.readAsDataURL(file)})}
+function rid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
+function clean(m){return{id:m.id,title:m.title,sub:m.sub,desc:m.desc,cat:m.cat,ver:m.ver,edition:m.edition,compat:m.compat,em:m.em,c1:m.c1,c2:m.c2,img:m.img||"",shots:m.shots||[],files:m.files||[],pub:m.pub||""}}
+async function pubJson(){await ghPut("mods.json",btoa(unescape(encodeURIComponent(JSON.stringify(mods.map(clean),null,1)))),"update mods")}
+function ghOk(){if(!cfg.o||!cfg.r||!cfg.t){toast("أدخل إعدادات GitHub أولاً");return false}return true}
+function saveGh(){cfg={o:$("g_o").value.trim(),r:$("g_r").value.trim(),b:$("g_b").value.trim()||"main",t:$("g_t").value.trim()};W("ld_gh",cfg);toast("تم الحفظ")}
+/* ===== stats ===== */
+function td(){var d=new Date();return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2)}
+async function cget(k){try{var r=await fetch(CNT+"/get/"+CNS+"/"+k);if(r.status==404)return 0;if(!r.ok)return null;var j=await r.json();return j.value||0}catch(e){return null}}
+function statsInner(){var s=stats;function v(x){return x==null?"—":x}return '<div class="info"><div class="in"><small>دخول اليوم</small><b>'+v(s.today)+'</b></div><div class="in"><small>إجمالي الدخول</small><b>'+v(s.total)+'</b></div><div class="in"><small>مشاهدات</small><b>'+v(s.views)+'</b></div><div class="in"><small>تحميلات</small><b>'+v(s.dls)+'</b></div><div class="in"><small>عدد الملفات</small><b>'+v(s.files)+'</b></div></div>'}
+async function refreshStats(m){var r=await Promise.all(["total","views","dls","days_"+td()].map(cget));stats.total=r[0];stats.views=r[1];stats.dls=r[2];stats.today=r[3];var el=$("stw");if(el)el.innerHTML=statsInner();if(m)toast("تم التحديث")}
+/* ===== verify ===== */
+async function doVer(on){
+  var u=$("v_u").value.trim().toLowerCase().replace(/^@/,"");if(!u){toast("اكتب اليوزر");return}
+  try{var uid=await db("GET","usernames/"+u);if(!uid){toast("اليوزر غير موجود");return}
+    if(on)await db("PUT","verified/"+uid,true);else await db("DELETE","verified/"+uid);toast(on?"تم التوثيق":"تم إلغاء التوثيق")}
+  catch(e){toast("فشل: تأكد من قواعد Firebase")}
+}
+/* ===== panel ===== */
+function f2(id,l,v,t){return '<label class="fld">'+l+'<input id="'+id+'" type="'+(t||"text")+'" value="'+esc(v||"")+'"></label>'}
+function fl(e){return e.id?(e.files||[]).map(function(f,i){return '<div class="arow"><span>📦 '+esc(f.n)+'</span><button class="btn" onclick="delFile('+e.id+','+i+')">🗑</button></div>'}).join(""):""}
+function panel(){
+  var e=edit&&mods.filter(function(x){return x.id==edit})[0]||{title:"",sub:"",desc:"",cat:"mods",ver:"",edition:"BEDROCK",compat:"",c1:"#ff2a3d",c2:"#19ff6b",em:"creeper"};
+  function f(id,l,v,t){return '<label class="fld">'+l+(t=="t"?'<textarea id="'+id+'">'+esc(v)+'</textarea>':'<input id="'+id+'" value="'+esc(v)+'">')+'</label>'}
+  var h='<div class="top"><h2>⚒ لوحة الأدمن</h2><button class="btn d" onclick="logout()">خروج</button></div><div id="stw">'+statsInner()+'</div><button class="btn d" style="margin-top:10px" onclick="refreshStats(1)">تحديث الأرقام</button>'
+  +'<div class="box"><h3>✔ توثيق حساب</h3>'+f2("v_u","اليوزر (بدون @)","")+'<div class="row" style="margin-top:12px"><button class="btn g" onclick="doVer(true)">إضافة توثيق</button><button class="btn" onclick="doVer(false)">إلغاء التوثيق</button></div></div>'
+  +'<div class="box"><h3>ربط GitHub (مرة واحدة)</h3>'+f2("g_o","اسم حسابك في GitHub",cfg.o)+f2("g_r","اسم الـ Repository",cfg.r)+f2("g_b","Branch",cfg.b||"main")+f2("g_t","Token",cfg.t,"password")+'<button class="btn g" style="margin-top:12px" onclick="saveGh()">حفظ الإعدادات</button></div>'
+  +'<div class="box"><h3>'+(edit?"تعديل المود":"إضافة مود جديد")+'</h3>'+f("a_t","اسم المود",e.title)+f("a_s","وصف قصير",e.sub)+f("a_d","الوصف الكامل",e.desc,"t")
+  +'<label class="fld">القسم<select id="a_c">'+Object.keys(CATS).map(function(k){return '<option value="'+k+'"'+(e.cat==k?" selected":"")+'>'+CATS[k]+'</option>'}).join("")+'</select></label>'
+  +f("a_v","إصدار اللعبة",e.ver)+f("a_e","Edition",e.edition)+f("a_k","التوافق",e.compat)+f("a_p","يوزر الناشر (بدون @)",e.pub||"")
+  +'<label class="fld">رمز الغلاف<select id="a_m">'+COVERS.map(function(k){return '<option value="'+k+'"'+(e.em==k?" selected":"")+'>'+k+'</option>'}).join("")+'</select></label>'
+  +f("a_1","لون 1",e.c1)+f("a_2","لون 2",e.c2)
+  +'<label class="fld">ملفات المود (mcaddon / mcpack / zip)<input id="a_f" type="file" multiple></label>'+fl(e)
+  +'<label class="fld">صورة الغلاف<input id="a_i" type="file" accept="image/*"></label><label class="fld">لقطات اللعب (حتى 4)<input id="a_sh" type="file" accept="image/*" multiple></label>'
+  +'<div class="row" style="margin-top:14px"><button class="btn g" id="sbtn" onclick="saveMod()">حفظ</button>'+(edit?'<button class="btn d" onclick="edit=null;panel()">إلغاء</button>':'')+'</div></div>'
+  +'<div class="box"><h3>المودات ('+mods.length+')</h3>';
+  mods.forEach(function(m){h+='<div class="arow"><span>'+esc(m.title)+'</span><button class="btn d" onclick="edit='+m.id+';panel();scrollTo(0,0)">✏</button><button class="btn" onclick="delMod('+m.id+')">🗑</button></div>'});
+  $("app").innerHTML=h+'</div>';
+}
+async function saveMod(){
+  if(!ghOk())return;var t=$("a_t").value.trim();if(!t){toast("اكتب اسم المود");return}
+  var b=$("sbtn");b.disabled=true;
+  try{
+    var m=edit?mods.filter(function(x){return x.id==edit})[0]:{id:mods.reduce(function(a,x){return Math.max(a,x.id)},0)+1,img:"",shots:[],files:[]};
+    m.title=t;m.sub=$("a_s").value;m.desc=$("a_d").value;m.cat=$("a_c").value;m.ver=$("a_v").value;m.edition=$("a_e").value;m.compat=$("a_k").value;m.em=$("a_m").value||"creeper";m.c1=$("a_1").value||"#ff2a3d";m.c2=$("a_2").value||"#19ff6b";m.pub=($("a_p").value||"").trim().toLowerCase().replace(/^@/,"");
+    var i=$("a_i").files[0],p,d,k;
+    if(i){b.textContent="رفع الغلاف...";d=await rd(i,720);p="img/"+rid()+".jpg";await ghPut(p,d.split(",")[1],"cover");if(m.img)ghDel(m.img);m.img=p}
+    var sh=Array.from($("a_sh").files).slice(0,4);
+    if(sh.length){b.textContent="رفع اللقطات...";m.shots=[];for(k=0;k<sh.length;k++){d=await rd(sh[k],520);p="img/"+rid()+".jpg";await ghPut(p,d.split(",")[1],"shot");m.shots.push(p)}}
+    var fs=Array.from($("a_f").files);
+    for(k=0;k<fs.length;k++){var x=(fs[k].name.split(".").pop()||"").toLowerCase();if(PKX.indexOf(x)<0){toast("نوع غير مسموح: "+fs[k].name);continue}b.textContent="رفع ملف "+(k+1)+"/"+fs.length+"...";p="files/"+rid()+"."+x;await ghPut(p,await b64f(fs[k]),"file");m.files.push({n:fs[k].name,p:p,s:fs[k].size})}
+    if(!edit)mods.unshift(m);
+    b.textContent="حفظ...";await pubJson();edit=null;toast("تم الحفظ، يظهر للزوار خلال دقيقة تقريباً");
+  }catch(e){toast("فشل الرفع: تحقق من التوكن والـ Repository")}
+  panel()
+}
+async function delFile(id,i){if(!ghOk())return;var m=mods.filter(function(x){return x.id==id})[0];await ghDel(m.files[i].p);m.files.splice(i,1);try{await pubJson()}catch(e){toast("فشل الحفظ")}panel()}
+async function delMod(id){if(!ghOk()||!confirm("حذف المود مع ملفاته؟"))return;var m=mods.filter(function(x){return x.id==id})[0];for(var f of(m.files||[]))await ghDel(f.p);for(var x of(m.shots||[]).concat(m.img?[m.img]:[]))await ghDel(x);mods=mods.filter(function(x){return x.id!=id});try{await pubJson()}catch(e){toast("فشل الحفظ")}panel()}
+async function start(){
+  if(!isAdmin()){loginPage();return}
+  try{var r=await fetch("mods.json?t="+Date.now());mods=r.ok?await r.json():[]}catch(e){mods=[]}
+  if(!Array.isArray(mods))mods=[];
+  stats.files=mods.reduce(function(a,m){return a+(m.files||[]).length},0);
+  panel();refreshStats();
+}
+start();
+</script>
+</body>
+</html>
