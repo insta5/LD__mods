@@ -1,5 +1,33 @@
 [
  {
+  "id": 7,
+  "title": "CustomNetherFortals",
+  "sub": "",
+  "desc": "Custom Nether Portals – بوابات نذر بأي حجم وشكل (Bedrock)\nالإصدارات: 26.51 / 26.52 | النوع: Add-on (BP + RP)\nابنِ بوابة النذر بالحجم والشكل اللي تبيه، صغيرة أو ضخمة، مستطيلة أو بأي شكل، وحتى مسطحة على الأرض.\nالمميزات\nأي حجم، من بلوك واحد لين 256 بلوك (قابل للتعديل).\nأي شكل مغلق بالأوبسيديان.\nبوابات أفقية على الأرض.\nبوابة خروج تنبني بنفس شكل بوابتك.\nربط تلقائي بين الأوفرورلد والنذر.\nتختفي البوابة إذا كسرت الإطار.\nالاستخدام\nابنِ إطار من الأوبسيديان بالشكل اللي تبيه.\nأشعله من الداخل بالولاعة أو Fire Charge.\nادخل وانتظر 4 ثواني (في الكرييتف فوري).\nالتركيب\nحمّل CustomNetherPortals.mcaddon وافتحه ليتثبت.\nفعّل الـ Behavior Pack والـ Resource Pack على عالمك.\nملاحظات\nيشتغل على اللاعبين فقط.\nبوابات النذر العادية القديمة تحتاج إعادة إشعال بالولاعة لتتحول.\nالإعدادات (الحجم، بلوكات الإطار) في scripts/config.js.\nالشكر: الفكرة من مود Custom Nether Portals للمطوّر هيرو تونر.",
+  "cat": "mods",
+  "ver": "26.52",
+  "edition": "BEDROCK",
+  "compat": "1.26.50 - 1.26.60",
+  "em": "creeper",
+  "c1": "#ff2a3d",
+  "c2": "#19ff6b",
+  "img": "img/mvifbubpfmrf.jpg",
+  "shots": [
+   "img/mvifbwgvagcj.jpg",
+   "img/mvifbykp2eyy.jpg",
+   "img/mvifc0johoxm.jpg",
+   "img/mvifc2kcle27.jpg"
+  ],
+  "files": [
+   {
+    "n": "CustomNetherPortals.mcaddon",
+    "p": "files/mvifc4ca0bju.mcaddon",
+    "s": 41129
+   }
+  ],
+  "pub": "v_j1j"
+ },
+ {
   "id": 6,
   "title": "Mod rich",
   "sub": "",
