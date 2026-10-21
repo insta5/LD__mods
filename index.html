@@ -10,18 +10,19 @@
 *{box-sizing:border-box;margin:0;font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif}
 body{background:var(--bg);color:var(--tx);min-height:100vh;padding-top:env(safe-area-inset-top,0px);background-image:radial-gradient(600px 300px at 90% -5%,#ff2a3d26,transparent),radial-gradient(600px 300px at 5% 0,#19ff6b1f,transparent);background-repeat:no-repeat}
 button,input,textarea,select{font:inherit;color:inherit}
+.px{image-rendering:pixelated;image-rendering:crisp-edges;vertical-align:middle;display:inline-block;flex:none}
 header{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:10px;padding:10px 14px;background:#07080cd9;backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .logo{display:flex;align-items:center;gap:10px;cursor:pointer;flex:1}.logo b{font-size:17px;letter-spacing:1px}.logo small{display:block;color:var(--mu);font-size:10px}
 .lg{width:44px;height:44px;object-fit:contain;filter:drop-shadow(0 0 8px #19ff6b88)}
-.ibtn{width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:var(--card);cursor:pointer;font-size:20px}
+.ibtn{width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:var(--card);cursor:pointer;display:grid;place-items:center}
 .menu{position:absolute;top:58px;left:14px;min-width:190px;background:#0d1016;border:1px solid var(--line);border-radius:14px;padding:6px;display:none;box-shadow:0 10px 40px #000c}
-.menu.on{display:block}.menu button{display:block;width:100%;text-align:right;background:none;border:0;padding:12px;border-radius:10px;cursor:pointer;font-size:14px}
+.menu.on{display:block}.menu button{display:flex;align-items:center;gap:8px;width:100%;text-align:right;background:none;border:0;padding:12px;border-radius:10px;cursor:pointer;font-size:14px}
 main{max-width:1000px;margin:0 auto;padding:16px 14px 40px}
 .search{display:flex;gap:8px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:0 14px}
 .search input{flex:1;background:none;border:0;outline:0;padding:15px 0}
 .tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:14px 0}
 .tile{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 8px;text-align:center;cursor:pointer;font-size:13px}
-.tile i{display:block;font-style:normal;font-size:28px;margin-bottom:4px}.tile em{display:block;font-style:normal;color:var(--g);font-size:11px;margin-top:3px}
+.tile i{display:block;font-style:normal;margin-bottom:6px}.tile em{display:block;font-style:normal;color:var(--g);font-size:11px;margin-top:3px}
 .tile.on{border-color:var(--g);box-shadow:0 0 16px #19ff6b55}
 h2{font-size:20px;margin:22px 0 10px;display:flex;align-items:center;gap:8px}
 .feat{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px}
@@ -37,34 +38,35 @@ h2{font-size:20px;margin:22px 0 10px;display:flex;align-items:center;gap:8px}
 .cov{height:150px;display:grid;place-items:center;position:relative;overflow:hidden}
 .ci{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .tag{position:absolute;top:8px;left:8px;background:var(--r);font-size:10px;padding:4px 9px;border-radius:8px;font-weight:700;color:#fff;z-index:2}
-.heart{position:absolute;top:8px;right:8px;width:34px;height:34px;border-radius:50%;background:#000a;border:1px solid #ffffff33;cursor:pointer;font-size:16px;z-index:2}
+.heart{position:absolute;top:8px;right:8px;width:34px;height:34px;border-radius:50%;background:#000a;border:1px solid #ffffff33;cursor:pointer;z-index:2;display:grid;place-items:center;padding:0}
 .heart.on{border-color:var(--r);box-shadow:0 0 14px var(--r)}
 .art{position:relative;z-index:1;padding:0 10px;text-align:center;font-weight:900;text-transform:uppercase;font-size:24px;line-height:1.05;color:#ffe14d;-webkit-text-stroke:1.5px #000;paint-order:stroke fill;transform:rotate(-3deg);font-family:Impact,"Arial Black",sans-serif}
-.art.big{font-size:44px}.em2{position:absolute;font-size:84px;opacity:.28;bottom:-8px;left:8px}
+.art.big{font-size:44px}.em2{position:absolute;font-size:84px;opacity:.28;bottom:-8px;left:8px;line-height:0}
 .cb{padding:12px;flex:1}.cb h4{font-size:15px}.cb p{color:var(--mu);font-size:12px;margin-top:3px}
 .cf{display:flex;gap:8px;align-items:center;padding:0 12px 12px}
-.gbtn{flex:1;text-align:center;padding:11px;border-radius:12px;font-weight:800;font-size:14px;background:linear-gradient(135deg,var(--g),#00a844);color:#031a0b;cursor:pointer}
-.pill{font-size:10px;font-weight:700;padding:5px 10px;border-radius:8px;border:1px solid #ff2a3d66;color:var(--r);background:#ff2a3d1a}
+.gbtn{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:11px;border-radius:12px;font-weight:800;font-size:14px;background:linear-gradient(135deg,var(--g),#00a844);color:#031a0b;cursor:pointer}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;padding:5px 10px;border-radius:8px;border:1px solid #ff2a3d66;color:var(--r);background:#ff2a3d1a}
 .box{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin-top:14px}
+.box h3{display:flex;align-items:center;gap:8px}
 .hero{height:230px;border-radius:20px;display:grid;place-items:center;position:relative;border:1px solid #ffffff22;overflow:hidden}
 .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 .info{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px}
-.in{border-radius:14px;padding:12px;border:1px solid;background:#0a0c11}.in small{display:block;color:var(--mu);font-size:11px;margin-bottom:5px}.in b{font-size:14px;word-break:break-word}
+.in{border-radius:14px;padding:12px;border:1px solid;background:#0a0c11}.in small{display:flex;align-items:center;gap:5px;color:var(--mu);font-size:11px;margin-bottom:5px}.in b{font-size:14px;word-break:break-word}
 .c-g{border-color:#19ff6b55}.c-g b{color:var(--g)}.c-r{border-color:#ff2a3d55}.c-r b{color:var(--r)}.c-b{border-color:#3da5ff55}.c-b b{color:var(--b)}.c-y{border-color:#ffc10755}.c-y b{color:var(--y)}.c-p{border-color:#b66dff55}.c-p b{color:var(--p)}
-.ver{color:var(--g);font-size:12px;margin-top:12px}
-.shots{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.shots div{height:110px;border-radius:14px;display:grid;place-items:center;font-size:38px;border:1px solid var(--line);position:relative;overflow:hidden}
-.dl{flex:1;border-radius:14px;padding:15px;font-weight:800;font-size:16px;cursor:pointer;background:linear-gradient(135deg,var(--g),#00a844);color:#031a0b;text-align:center}
-.btn{border:0;border-radius:12px;padding:12px 18px;font-weight:700;cursor:pointer;background:linear-gradient(135deg,var(--r),#b3001b)}
+.ver{display:flex;align-items:center;gap:8px;color:var(--g);font-size:12px;margin-top:12px}
+.shots{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.shots div{height:110px;border-radius:14px;display:grid;place-items:center;border:1px solid var(--line);position:relative;overflow:hidden}
+.dl{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;border-radius:14px;padding:15px;font-weight:800;font-size:16px;cursor:pointer;background:linear-gradient(135deg,var(--g),#00a844);color:#031a0b;text-align:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border:0;border-radius:12px;padding:12px 18px;font-weight:700;cursor:pointer;background:linear-gradient(135deg,var(--r),#b3001b)}
 .btn.g{background:linear-gradient(135deg,var(--g),#00a844);color:#031a0b}.btn.d{background:#1b202b}
-.sq{width:52px;height:52px;border-radius:10px;border:1px solid var(--line);background:#0a0c11;cursor:pointer}
+.sq{width:52px;height:52px;border-radius:10px;border:1px solid var(--line);background:#0a0c11;cursor:pointer;display:grid;place-items:center}
 .fld{display:block;margin-top:12px;font-size:13px;color:var(--mu)}
 .fld input,.fld textarea,.fld select{display:block;width:100%;margin-top:6px;background:#0a0c11;border:1px solid var(--line);border-radius:12px;padding:12px;outline:0;direction:ltr;text-align:left}
 .fld textarea{direction:rtl;text-align:right;min-height:80px}
 .login{max-width:400px;margin:40px auto;text-align:center}
 .err{color:var(--r);font-size:13px;margin-top:10px;min-height:18px}
-.arow{display:flex;gap:8px;align-items:center;padding:10px;border:1px solid var(--line);border-radius:12px;margin-top:8px;background:#0a0c11}.arow span{flex:1;font-size:14px}
+.arow{display:flex;gap:8px;align-items:center;padding:10px;border:1px solid var(--line);border-radius:12px;margin-top:8px;background:#0a0c11}.arow span{flex:1;font-size:14px;display:flex;align-items:center;gap:8px}
 .empty{text-align:center;color:var(--mu);padding:40px}
-.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#0d1016;border:1px solid var(--g);padding:12px 20px;border-radius:12px;z-index:50;font-size:14px}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#0d1016;border:1px solid var(--g);padding:12px 20px;border-radius:12px;z-index:50;font-size:14px;display:flex;align-items:center;gap:8px}
 .foot{max-width:1000px;margin:0 auto;padding:10px 14px 30px;text-align:center}.foot p{color:var(--mu);font-size:12px;margin-top:16px}
 .tg{display:flex;align-items:center;justify-content:center;gap:14px;padding:20px;border-radius:999px;font-size:22px;font-weight:900;color:#fff;text-decoration:none;background:radial-gradient(circle at 30% 25%,#7fd6ff,#1e9bf0 45%,#0a5fb4)}
 .tg svg{width:40px;height:40px;fill:#fff}
@@ -73,7 +75,7 @@ h2{font-size:20px;margin:22px 0 10px;display:flex;align-items:center;gap:8px}
 .banner{display:flex;gap:14px;align-items:center;padding:18px;border-radius:20px;background:linear-gradient(120deg,#ff2a3d40,#0d1016 50%,#19ff6b40);border:1px solid #ffffff2a;margin-bottom:14px}
 .banner .lg{width:84px;height:84px;flex:none}.banner h1{font-size:26px;background:linear-gradient(90deg,var(--r),var(--g));-webkit-background-clip:text;background-clip:text;color:transparent}.banner p{color:#b8c0d0;font-size:13px;margin:4px 0 12px}
 .vb{width:18px;height:18px;vertical-align:middle;margin-inline-start:4px}
-.av{border-radius:50%;object-fit:cover;border:2px solid var(--g);background:#0a0c11;width:96px;height:96px;display:inline-grid;place-items:center;font-size:44px}
+.av{border-radius:50%;object-fit:cover;border:2px solid var(--g);background:#0a0c11;width:96px;height:96px;display:inline-grid;place-items:center}
 .pubbtn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:999px;border:1px solid #3da5ff66;background:#3da5ff1a;color:var(--b);font-weight:700;font-size:13px;cursor:pointer;margin:8px 0}
 .pubbtn.sm{padding:3px 10px;font-size:11px;margin:6px 0 0}
 .prof{text-align:center}.pu{color:var(--mu)}.tgi svg{width:20px;height:20px;fill:#29b6f6;vertical-align:middle}
@@ -83,7 +85,7 @@ h2{font-size:20px;margin:22px 0 10px;display:flex;align-items:center;gap:8px}
 <body>
 <header>
   <div class="logo" onclick="go('')"><img class="lg" id="hl" alt=""><div><b>LD ADD-ONS</b><small>MINECRAFT · مودات ماين كرافت</small></div></div>
-  <button class="ibtn" id="mbtn" aria-label="menu">⋮</button>
+  <button class="ibtn" id="mbtn" aria-label="menu"></button>
   <div class="menu" id="menu"></div>
 </header>
 <main id="app"></main>
@@ -91,9 +93,53 @@ h2{font-size:20px;margin:22px 0 10px;display:flex;align-items:center;gap:8px}
 <script>
 var FBK="AIzaSyBwtU1sfXOet8JpjKyVa7TqQ6Goy_8nCME",FBDB="https://ldmods-d5b7b-default-rtdb.firebaseio.com",EMAIL="ld_adddon@gmial.com";
 var LOGO="data:image/svg+xml,"+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><linearGradient id="a" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff2a3d"/><stop offset="1" stop-color="#19ff6b"/></linearGradient></defs><rect x="6" y="6" width="88" height="88" rx="20" fill="#0d1016" stroke="url(#a)" stroke-width="5"/><text x="50" y="64" font-size="42" font-weight="900" text-anchor="middle" fill="url(#a)" font-family="Arial Black,Impact,sans-serif">LD</text></svg>');
-var VB="data:image/svg+xml,"+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#1d9bf0"/><path d="M7 12.5l3.2 3.2L17 8.8" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>');
-var CATS={all:["الكل"],mods:["مودات","🧩"],skins:["سكنات","👕"],maps:["خرائط","🧭"],resource:["ريسورس باك","🖼️"],servers:["سيرفرات","👑"]};
-var EM={orb:"🔮",fire:"🔥",dia:"💎",totem:"🛡️"};
+
+/* ===== شارة التوثيق الزرقاء (نجمة متعرجة + صح أبيض) ===== */
+var VB=(function(){var p=[],n=72,i,a,r;for(i=0;i<n;i++){a=2*Math.PI*i/n;r=10.3+1.6*Math.cos(8*a);p.push((12+r*Math.cos(a)).toFixed(2)+","+(12+r*Math.sin(a)).toFixed(2))}
+return "data:image/svg+xml,"+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon points="'+p.join(" ")+'" fill="#1d9bf0"/><path d="M7.2 12.6l3.1 3.1 6.5-6.6" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>')})();
+
+/* ===== رموز ماين كرافت (بكسل آرت 8x8) ===== */
+var ICO={},IC={};
+function def(n,pal,rows){ICO[n]=[pal,rows]}
+def("grass",{g:"#5cb338",G:"#3f8a24",d:"#8b5a2b",D:"#6b4220"},["gggggggg","gGggGggg","GggGgggG","ddDdddDd","dddDdddd","DdddddDd","dddDdddd","dDdddDdd"]);
+def("diamond",{w:"#d6fffb",c:"#4be8d8",b:"#1fa89c"},["..wccc..",".wccccb.","wcccccbb",".ccccbb.","..ccbb..","...cb...","........","........"]);
+def("creeper",{g:"#4caf50",G:"#2e7d32",k:"#0b0b0b"},["gGggggGg","gggggggg","gkkggkkg","gkkggkkg","ggkkkkgg","gkkkkkkg","gkkggkkg","GggggggG"]);
+def("sword",{w:"#d6fffb",c:"#4be8d8",g:"#6d4c41",b:"#8d6e63"},["......wc",".....wcc","....wcc.","...wcc..",".gwcc...","..gg....",".bg.g...","b......."]);
+def("pickaxe",{s:"#4be8d8",w:"#8d6e63"},["..ssss..",".s....s.","s..w...s","...w....","...w....","...w....","...w....","...w...."]);
+def("heart",{r:"#e53935",R:"#b71c1c",w:"#ff8a80"},["........",".rr..rr.","rwrrrrrr","rrrrrrrR",".rrrrrR.","..rrrR..","...rR...","........"]);
+def("heart0",{k:"#9e9e9e"},[".kk..kk.","k..kk..k","k......k","k......k",".k....k.","..k..k..","...kk...","........"]);
+def("flame",{r:"#f44336",o:"#ff9800",y:"#ffeb3b"},["...r....","..rr.r..","..rrrr..",".rroorr.",".roooor.","rooyyoor","rooyyoor",".rrrrrr."]);
+def("totem",{g:"#f5c542",G:"#c9962b",e:"#2ecc71",b:"#8d5524"},["..bbbb..",".bggggb.",".beggeb.",".bggggb.","bbgGGgbb",".bggggb.","..bggb..","..bbbb.."]);
+def("orb",{p:"#0f5e4d",q:"#1de9b6",w:"#b9f6ca"},["..pppp..",".pqqqqp.","pqwqqqqp","pqwqqqqp","pqqqqqqp","pqqqqqqp",".pqqqqp.","..pppp.."]);
+def("chest",{k:"#3e2723",b:"#a0662b",B:"#7a4a1c",y:"#ffd54f"},["kkkkkkkk","kbbbbbbk","kbbbbbbk","kkkyykkk","kbbyybbk","kbbbbbbk","kBBBBBBk","kkkkkkkk"]);
+def("map",{k:"#6d4c41",m:"#e8d5a3",g:"#66bb6a",b:"#42a5f5",r:"#e53935"},["kkkkkkkk","kmmmmmmk","kmggmbbk","kmgmmbbk","kmmmrmmk","kmbbmggk","kmmmmmmk","kkkkkkkk"]);
+def("skin",{H:"#4e342e",f:"#d9a066",w:"#ffffff",E:"#3f51b5",m:"#8d5524"},["HHHHHHHH","HHHHHHHH","HffffffH","fwEffEwf","ffffffff","ffffmmff","ffffffff","ffffffff"]);
+def("frame",{k:"#6d4c41",s:"#81d4fa",y:"#ffeb3b",g:"#4caf50",d:"#8b5a2b"},["kkkkkkkk","kssssssk","ksssssyk","kssgsssk","ksgggssk","kgggggsk","kdddddgk","kkkkkkkk"]);
+def("crown",{y:"#ffd54f",Y:"#f9a825",r:"#e53935",b:"#42a5f5"},["........","y..yy..y","yy.yy.yy","yyyyyyyy","yyryybyy","YYYYYYYY","YYYYYYYY","........"]);
+def("shield",{k:"#37474f",s:"#b0bec5",c:"#42a5f5"},[".kkkkkk.","kssccssk","kssccssk","kssccssk",".kssssk.",".kssssk.","..kssk..","...kk..."]);
+def("key",{y:"#ffd54f"},["..yyy...",".y...y..",".y...y..","..yyy...","...y....","...yy...","...y....","...yy..."]);
+def("door",{k:"#4e342e",b:"#8d6e63",y:"#ffd54f"},["kkkkkk..","kbbbbk..","kbbbbk..","kbbybk..","kbbbbk..","kbbbbk..","kbbbbk..","kkkkkk.."]);
+def("anvil",{A:"#78909c",a:"#546e7a"},["AAAAAAAA","aAAAAAAa",".aaAAaa.","...aa...","...aa...","..aaaa..",".aaaaaa.",".aaaaaa."]);
+def("star",{y:"#ffeb3b"},["...y....","...y....","..yyy...","yyyyyyyy","..yyy...",".yy.yy..",".y...y..","y.....y."]);
+def("eye",{w:"#ffffff",k:"#1565c0"},["........","..wwww..",".wwkkww.","wwkkkkww","wwkkkkww",".wwkkww.","..wwww..","........"]);
+def("download",{g:"#19ff6b"},["...gg...","...gg...","...gg...","gg.gg.gg",".gggggg.","..gggg..","...gg...","gggggggg"]);
+def("search",{k:"#455a64",l:"#81d4fa",b:"#8d6e63"},[".kkkk...","kllllk..","kllllk..","kllllk..",".kkkkb..",".....b..","......b.",".......b"]);
+def("link",{s:"#b0bec5"},["ssss....","s..s....","s.ssss..","ssss.s..","...s.s..","...ssss.","........","........"]);
+def("emerald",{g:"#2ecc71",w:"#b9f6ca",G:"#1b8f4e"},["..gggg..",".gwgggg.","gwggggGg","ggggggGg",".ggggGg.","..gGGg..","........","........"]);
+def("pencil",{k:"#6d4c41",y:"#ffd54f",p:"#f8bbd0"},["......kk",".....kyk","....kyk.","...kyk..","..kyk...",".kpk....","kppk....","kkk....."]);
+def("tnt",{r:"#e53935",w:"#ffffff",k:"#212121"},["rrrrrrrr","wwwwwwww","wkkwkkww","wkkwkkww","wwwwwwww","rrrrrrrr","rrrrrrrr","rrrrrrrr"]);
+def("cycle",{g:"#19ff6b"},[".ggggg..","g.....g.","g....ggg","......g.",".g......","ggg....g",".g.....g","..ggggg."]);
+def("earth",{b:"#1e88e5",g:"#43a047"},["..bbbb..",".bggbbb.","bggbbbbb","bgbbggbb","bbbbggbb","bbgbbbbb",".bbbbbb.","..bbbb.."]);
+def("check",{g:"#19ff6b"},[".......g","......gg","g....gg.","gg..gg..",".gggg...","..gg....","........","........"]);
+def("menu",{g:"#e0e0e0"},["........","gggggggg","........","gggggggg","........","gggggggg","........","........"]);
+function src(n){if(IC[n])return IC[n];var d=ICO[n];if(!d)return null;var pal=d[0],rows=d[1],s='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8" shape-rendering="crispEdges">',x,y,c;
+for(y=0;y<8;y++)for(x=0;x<8;x++){c=(rows[y]||"")[x]||".";if(c!=="."&&pal[c])s+='<rect x="'+x+'" y="'+y+'" width="1.02" height="1.02" fill="'+pal[c]+'"/>'}
+return IC[n]="data:image/svg+xml,"+encodeURIComponent(s+'</svg>')}
+function I(n,s){s=s||20;var u=src(n);if(!u)return esc(n);return '<img class="px" src="'+u+'" width="'+s+'" height="'+s+'" alt="">'}
+var COVERS=["creeper","diamond","orb","flame","totem","chest","sword","pickaxe","map","skin","frame","crown","grass","heart","anvil","star","emerald","tnt"];
+
+var CATS={all:["الكل"],mods:["مودات","creeper"],skins:["سكنات","skin"],maps:["خرائط","map"],resource:["ريسورس باك","frame"],servers:["سيرفرات","crown"]};
+var EM={orb:"orb",fire:"flame",dia:"diamond",totem:"totem"};
 var mods=[],likes={},cat="all",q="",S=null,edit=null,seen={},stats={},cfg={},UC={},PKX=["mcaddon","mcpack","mcworld","mctemplate","zip"];
 var CNS="ld"+location.hostname.replace(/[^a-z0-9]/gi,"").toLowerCase().slice(0,40),CNT="https://abacus.jasoncameron.dev";
 function $(i){return document.getElementById(i)}
@@ -101,15 +147,16 @@ function J(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return nul
 function W(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
 likes=J("ld_likes")||{};cfg=J("ld_gh")||{};S=J("ld_s");
 document.getElementById("hl").src=LOGO;
+$("mbtn").innerHTML=I("menu",26);
 function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 function isAdmin(){return !!S&&S.e===EMAIL}
-function ic(k,s){return (CATS[k]&&CATS[k][1])||EM[k]||""}
-function hi(on){return on?"❤️":"🤍"}
+function ic(k,s){var n=(CATS[k]&&CATS[k][1])||EM[k]||"";return I(n,s||32)}
+function hi(on){return I(on?"heart":"heart0",20)}
 function vbadge(){return '<img class="vb" src="'+VB+'" alt="">'}
 function go(h){location.hash=h;route()}
-function toast(t){var d=document.createElement("div");d.className="toast";d.textContent=t;document.body.appendChild(d);setTimeout(function(){d.remove()},2600)}
+function toast(t){var d=document.createElement("div");d.className="toast";d.innerHTML=I("check",18)+'<span>'+esc(t)+'</span>';document.body.appendChild(d);setTimeout(function(){d.remove()},2600)}
 function bg(m){return "background:linear-gradient(135deg,"+esc(m.c1)+","+esc(m.c2)+")"}
-function menu(){$("menu").innerHTML='<button onclick="go(\'\')">🏠 الصفحة الرئيسية</button>'+(S?'<button onclick="go(\'me\')">🛡️ حسابي</button>':'<button onclick="go(\'login\')">🔑 تسجيل الدخول</button><button onclick="go(\'signup\')">✨ إنشاء حساب</button>')+(isAdmin()?'<button onclick="go(\'admin\')">🛠️ لوحة الأدمن</button>':'')+(S?'<button onclick="logout()">🚪 تسجيل الخروج</button>':'')}
+function menu(){$("menu").innerHTML='<button onclick="go(\'\')">'+I("grass",20)+' الصفحة الرئيسية</button>'+(S?'<button onclick="go(\'me\')">'+I("shield",20)+' حسابي</button>':'<button onclick="go(\'login\')">'+I("key",20)+' تسجيل الدخول</button><button onclick="go(\'signup\')">'+I("star",20)+' إنشاء حساب</button>')+(isAdmin()?'<button onclick="go(\'admin\')">'+I("anvil",20)+' لوحة الأدمن</button>':'')+(S?'<button onclick="logout()">'+I("door",20)+' تسجيل الخروج</button>':'')}
 $("mbtn").onclick=function(e){e.stopPropagation();menu();$("menu").classList.toggle("on")};
 document.addEventListener("click",function(){$("menu").classList.remove("on")});
 function logout(){S=null;try{localStorage.removeItem("ld_s")}catch(e){}go("")}
@@ -121,103 +168,103 @@ async function tok(){if(!S)return null;if(Date.now()>S.x){try{var r=await fetch(
 async function db(m,p,b){var t=await tok(),r=await fetch(FBDB+"/"+p+".json"+(t?"?auth="+t:""),{method:m,body:b===undefined?undefined:JSON.stringify(b)});if(!r.ok)throw new Error("db "+r.status);return r.json()}
 function errTxt(m){var t={EMAIL_EXISTS:"الإيميل مستخدم من قبل",INVALID_EMAIL:"الإيميل غير صحيح",WEAK_PASSWORD:"كلمة السر ضعيفة (6 أحرف على الأقل)",INVALID_LOGIN_CREDENTIALS:"الإيميل أو كلمة السر غير صحيحة",EMAIL_NOT_FOUND:"الحساب غير موجود",INVALID_PASSWORD:"كلمة السر غير صحيحة",OPERATION_NOT_ALLOWED:"فعّل Email/Password في Firebase",MISSING_PASSWORD:"اكتب كلمة السر"};for(var k in t)if(String(m).indexOf(k)==0)return t[k];return "خطأ: "+m}
 function getU(u){if(!UC[u])UC[u]=(async function(){var uid=await db("GET","usernames/"+u);if(!uid)return null;var r=await Promise.all([db("GET","users/"+uid),db("GET","verified/"+uid)]);var x=r[0]||{};x.uid=uid;x.v=!!r[1];x.user=u;return x})();return UC[u]}
-function avHtml(x,s){return x&&x.av?'<img class="av" style="width:'+s+'px;height:'+s+'px" src="'+esc(x.av)+'" alt="">':'<span class="av" style="width:'+s+'px;height:'+s+'px;font-size:'+(s/2)+'px">🛡️</span>'}
+function avHtml(x,s){return x&&x.av?'<img class="av" style="width:'+s+'px;height:'+s+'px" src="'+esc(x.av)+'" alt="">':'<span class="av" style="width:'+s+'px;height:'+s+'px">'+I("skin",Math.round(s*.6))+'</span>'}
 async function decorPubs(){var els=document.querySelectorAll(".pubbtn[data-u]");for(var i=0;i<els.length;i++){(function(el){var u=el.getAttribute("data-u");getU(u).then(function(x){if(!x)return;el.innerHTML="@"+esc(x.name||u)+(x.v?vbadge():"")}).catch(function(){})})(els[i])}}
 function pubBtn(m){if(!m.pub)return "";return '<div class="row"><div class="pubbtn" data-u="'+esc(m.pub)+'" onclick="go(\'u-'+esc(m.pub)+'\')">@'+esc(m.pub)+'</div><span class="pill" style="color:var(--y);border-color:#ffc10766;background:#ffc1071a">'+esc(m.ver)+'</span><span class="pill" style="color:var(--g);border-color:#19ff6b66;background:#19ff6b1a">'+esc(m.compat)+'</span></div>'}
 /* ===== pages ===== */
-function cov(m,big){return m.img?'<img class="ci" src="'+esc(m.img)+'" alt="">':'<span class="em2">'+esc(m.em)+'</span><span class="art'+(big?' big':'')+'">'+esc(m.title)+'</span>'}
+function cov(m,big){return m.img?'<img class="ci" src="'+esc(m.img)+'" alt="">':'<span class="em2">'+I(m.em,84)+'</span><span class="art'+(big?' big':'')+'">'+esc(m.title)+'</span>'}
 function goGrid(){var g=document.querySelector(".grid");if(g)g.scrollIntoView({behavior:"smooth"})}
-function card(m){return '<div class="card" onclick="go(\'mod-'+m.id+'\')"><div class="cov" style="'+bg(m)+'">'+cov(m)+'<span class="tag">'+esc((CATS[m.cat]||["MODS"])[0])+'</span><button class="heart '+(likes[m.id]?"on":"")+'" onclick="like('+m.id+',event)">'+hi(likes[m.id])+'</button></div><div class="cb"><h4>'+esc(m.title)+'</h4><p>'+esc(m.sub)+'</p>'+(m.pub?'<div class="pubbtn sm" data-u="'+esc(m.pub)+'" onclick="event.stopPropagation();go(\'u-'+esc(m.pub)+'\')">@'+esc(m.pub)+'</div>':'')+'</div><div class="cf"><a class="gbtn" onclick="event.stopPropagation();dlAll('+m.id+')">⬇ تحميل</a><span class="pill">'+esc(m.edition)+'</span></div></div>'}
+function card(m){return '<div class="card" onclick="go(\'mod-'+m.id+'\')"><div class="cov" style="'+bg(m)+'">'+cov(m)+'<span class="tag">'+esc((CATS[m.cat]||["MODS"])[0])+'</span><button class="heart '+(likes[m.id]?"on":"")+'" onclick="like('+m.id+',event)">'+hi(likes[m.id])+'</button></div><div class="cb"><h4>'+esc(m.title)+'</h4><p>'+esc(m.sub)+'</p>'+(m.pub?'<div class="pubbtn sm" data-u="'+esc(m.pub)+'" onclick="event.stopPropagation();go(\'u-'+esc(m.pub)+'\')">@'+esc(m.pub)+'</div>':'')+'</div><div class="cf"><a class="gbtn" onclick="event.stopPropagation();dlAll('+m.id+')">'+I("download",18)+' تحميل</a><span class="pill">'+esc(m.edition)+'</span></div></div>'}
 function home(){
   var list=mods.filter(function(m){return(cat=="all"||m.cat==cat)&&(m.title+" "+m.sub).toLowerCase().indexOf(q.toLowerCase())>-1});
-  var h='<div class="banner"><img class="lg" src="'+LOGO+'" alt=""><div><h1>LD ADD-ONS</h1><p>أقوى مودات وخرائط وسكنات ماين كرافت، تحميل مجاني وآمن</p><div class="row"><span class="btn g" onclick="goGrid()">⬇ تصفح المودات</span><span class="pill" style="color:var(--g);border-color:#19ff6b66;background:#19ff6b1a">'+mods.length+' محتوى</span></div></div></div><div class="search"><span>🔍</span><input id="q" placeholder="ابحث عن مود أو خريطة أو سكن..." value="'+esc(q)+'"></div><div class="tiles">';
-  Object.keys(CATS).filter(function(k){return k!="all"}).forEach(function(k){var n=mods.filter(function(m){return m.cat==k}).length;h+='<div class="tile '+(cat==k?"on":"")+'" onclick="setCat(\''+k+'\')"><i>'+ic(k)+'</i>'+CATS[k][0]+'<em>+'+n+'</em></div>'});
-  h+='</div><h2>'+ic("orb")+' المميز</h2><div class="feat">';
-  mods.slice(0,3).forEach(function(m){h+='<div class="fc" style="'+bg(m)+'" onclick="go(\'mod-'+m.id+'\')">'+(m.img?'<img class="ci" src="'+esc(m.img)+'" alt=""><div class="ov"></div>':'<span class="em">'+esc(m.em)+'</span>')+'<h3>'+esc(m.title)+'</h3><p>'+esc(m.sub)+'</p><div class="row"><span class="btn g" style="padding:8px 14px;font-size:13px">⬇ تحميل</span><span class="btn" style="padding:8px 14px;font-size:13px">التفاصيل</span></div></div>'});
-  h+='</div><h2>'+ic("fire")+' الأكثر طلباً</h2><div class="chips">';
+  var h='<div class="banner"><img class="lg" src="'+LOGO+'" alt=""><div><h1>LD ADD-ONS</h1><p>أقوى مودات وخرائط وسكنات ماين كرافت، تحميل مجاني وآمن</p><div class="row"><span class="btn g" onclick="goGrid()">'+I("pickaxe",20)+' تصفح المودات</span><span class="pill" style="color:var(--g);border-color:#19ff6b66;background:#19ff6b1a">'+mods.length+' محتوى</span></div></div></div><div class="search">'+I("search",22)+'<input id="q" placeholder="ابحث عن مود أو خريطة أو سكن..." value="'+esc(q)+'"></div><div class="tiles">';
+  Object.keys(CATS).filter(function(k){return k!="all"}).forEach(function(k){var n=mods.filter(function(m){return m.cat==k}).length;h+='<div class="tile '+(cat==k?"on":"")+'" onclick="setCat(\''+k+'\')"><i>'+ic(k,34)+'</i>'+CATS[k][0]+'<em>+'+n+'</em></div>'});
+  h+='</div><h2>'+ic("orb",28)+' المميز</h2><div class="feat">';
+  mods.slice(0,3).forEach(function(m){h+='<div class="fc" style="'+bg(m)+'" onclick="go(\'mod-'+m.id+'\')">'+(m.img?'<img class="ci" src="'+esc(m.img)+'" alt=""><div class="ov"></div>':'<span class="em">'+I(m.em,64)+'</span>')+'<h3>'+esc(m.title)+'</h3><p>'+esc(m.sub)+'</p><div class="row"><span class="btn g" style="padding:8px 14px;font-size:13px">'+I("download",16)+' تحميل</span><span class="btn" style="padding:8px 14px;font-size:13px">'+I("sword",16)+' التفاصيل</span></div></div>'});
+  h+='</div><h2>'+ic("fire",28)+' الأكثر طلباً</h2><div class="chips">';
   Object.keys(CATS).forEach(function(k){h+='<div class="chip '+(cat==k?"on":"")+'" onclick="setCat(\''+k+'\')">'+CATS[k][0]+'</div>'});
-  h+='</div>'+(list.length?'<div class="grid">'+list.map(card).join("")+'</div>':'<div class="empty">لا توجد نتائج</div>');
+  h+='</div>'+(list.length?'<div class="grid">'+list.map(card).join("")+'</div>':'<div class="empty">'+I("creeper",48)+'<p style="margin-top:10px">لا توجد نتائج</p></div>');
   $("app").innerHTML=h;
   var i=$("q");i.oninput=function(){q=i.value;var p=i.selectionStart;home();var n=$("q");n.focus();n.setSelectionRange(p,p);setTimeout(decorPubs,50)};
 }
 function setCat(k){cat=cat==k?"all":k;route()}
 function mod(id){
   var m=mods.filter(function(x){return x.id==id})[0];
-  if(!m){$("app").innerHTML='<div class="empty">المود غير موجود</div>';return}
+  if(!m){$("app").innerHTML='<div class="empty">'+I("creeper",48)+'<p style="margin-top:10px">المود غير موجود</p></div>';return}
   var h='<div class="hero" style="'+bg(m)+'">'+cov(m,1)+'</div>';
-  h+='<div class="box"><div class="row"><span class="pill">MODS • ADDONS</span><span class="pill" style="color:var(--y);border-color:#ffc10766;background:#ffc1071a">'+ic("orb")+' مميز</span></div><h2 style="margin-top:12px">'+esc(m.title)+'</h2>'+pubBtn(m)+'<div class="row"><span class="pill" style="color:var(--g);border-color:#19ff6b66;background:#19ff6b1a">'+esc((CATS[m.cat]||["مود"])[0])+'</span><span id="pv" class="pill" style="color:var(--b);border-color:#3da5ff66;background:#3da5ff1a">👁 '+m.views+'</span><span id="pd" class="pill" style="color:var(--g);border-color:#19ff6b66;background:#19ff6b1a">⬇ '+(m.dls||0)+'</span><button class="heart '+(likes[m.id]?"on":"")+'" style="position:static" onclick="like('+m.id+',event)">'+hi(likes[m.id])+'</button></div></div>';
-  h+='<div class="box"><h2 style="margin-top:0;font-size:16px">🌐 تفاصيل ووصف المود</h2><p style="line-height:1.9;color:#cfd5e2">'+esc(m.desc)+'</p></div>';
-  h+='<div class="box"><div class="info"><div class="in c-g"><small>التوافق</small><b>'+esc(m.compat)+'</b></div><div class="in c-r"><small>اسم المود</small><b>'+esc(m.title)+'</b></div><div class="in c-b"><small>مود ID</small><b>#'+m.id+'</b></div><div class="in c-y"><small>إصدار اللعبة</small><b>'+esc(m.ver)+'</b></div><div class="in c-p"><small>Edition</small><b>'+esc(m.edition)+'</b></div><div class="in c-g"><small>الفئة والتصنيف</small><b>'+esc((CATS[m.cat]||["مود"])[0])+'</b></div></div><div class="ver">🛡️ تم الفحص والتوثيق بواسطة LD Team — آمن وخالٍ من أي مشاكل</div></div>';
-  var cs=[[m.c1,m.c2],[m.c2,m.c1],["#1b5e20","#19ff6b"],["#b3001b","#ff2a3d"]];
-  h+='<div class="box"><h2 style="margin-top:0;font-size:16px">🖼️ لقطات اللعب (4)</h2><div class="shots">'+(m.shots&&m.shots.length?m.shots.map(function(x){return '<div><img class="ci" src="'+esc(x)+'" alt=""></div>'}).join(""):cs.map(function(c,i){return '<div style="background:linear-gradient(135deg,'+esc(c[0])+','+esc(c[1])+')">'+["❄️","🌸","⛏️","🌅"][i]+'</div>'}).join(""))+'</div></div>';
-  h+='<div class="box" style="border-color:#ff2a3d55"><p style="text-align:center;margin-bottom:12px">جاهز لتجربة المود في ماين كرافت؟</p><div class="row"><button class="sq" onclick="share()">🔗</button><a class="dl" onclick="dlAll('+m.id+')">'+ic("dia")+' تحميل المود'+(m.files&&m.files.length>1?' ('+m.files.length+' ملفات)':'')+'</a></div></div>';
+  h+='<div class="box"><div class="row"><span class="pill">MODS • ADDONS</span><span class="pill" style="color:var(--y);border-color:#ffc10766;background:#ffc1071a">'+I("orb",14)+' مميز</span></div><h2 style="margin-top:12px">'+esc(m.title)+'</h2>'+pubBtn(m)+'<div class="row"><span class="pill" style="color:var(--g);border-color:#19ff6b66;background:#19ff6b1a">'+esc((CATS[m.cat]||["مود"])[0])+'</span><span id="pv" class="pill" style="color:var(--b);border-color:#3da5ff66;background:#3da5ff1a">'+I("eye",14)+' '+m.views+'</span><span id="pd" class="pill" style="color:var(--g);border-color:#19ff6b66;background:#19ff6b1a">'+I("download",14)+' '+(m.dls||0)+'</span><button class="heart '+(likes[m.id]?"on":"")+'" style="position:static" onclick="like('+m.id+',event)">'+hi(likes[m.id])+'</button></div></div>';
+  h+='<div class="box"><h2 style="margin-top:0;font-size:16px">'+I("earth",22)+' تفاصيل ووصف المود</h2><p style="line-height:1.9;color:#cfd5e2">'+esc(m.desc)+'</p></div>';
+  h+='<div class="box"><div class="info"><div class="in c-g"><small>التوافق</small><b>'+esc(m.compat)+'</b></div><div class="in c-r"><small>اسم المود</small><b>'+esc(m.title)+'</b></div><div class="in c-b"><small>مود ID</small><b>#'+m.id+'</b></div><div class="in c-y"><small>إصدار اللعبة</small><b>'+esc(m.ver)+'</b></div><div class="in c-p"><small>Edition</small><b>'+esc(m.edition)+'</b></div><div class="in c-g"><small>الفئة والتصنيف</small><b>'+esc((CATS[m.cat]||["مود"])[0])+'</b></div></div><div class="ver">'+I("shield",22)+' تم الفحص والتوثيق بواسطة LD Team — آمن وخالٍ من أي مشاكل</div></div>';
+  var cs=[[m.c1,m.c2,"diamond"],[m.c2,m.c1,"grass"],["#1b5e20","#19ff6b","pickaxe"],["#b3001b","#ff2a3d","star"]];
+  h+='<div class="box"><h2 style="margin-top:0;font-size:16px">'+I("frame",22)+' لقطات اللعب (4)</h2><div class="shots">'+(m.shots&&m.shots.length?m.shots.map(function(x){return '<div><img class="ci" src="'+esc(x)+'" alt=""></div>'}).join(""):cs.map(function(c){return '<div style="background:linear-gradient(135deg,'+esc(c[0])+','+esc(c[1])+')">'+I(c[2],52)+'</div>'}).join(""))+'</div></div>';
+  h+='<div class="box" style="border-color:#ff2a3d55"><p style="text-align:center;margin-bottom:12px">جاهز لتجربة المود في ماين كرافت؟</p><div class="row"><button class="sq" onclick="share()">'+I("link",26)+'</button><a class="dl" onclick="dlAll('+m.id+')">'+I("diamond",24)+' تحميل المود'+(m.files&&m.files.length>1?' ('+m.files.length+' ملفات)':'')+'</a></div></div>';
   $("app").innerHTML=h;
 }
-function share(){try{navigator.clipboard.writeText(location.href);toast("تم نسخ الرابط ✅")}catch(e){toast("انسخ الرابط من المتصفح")}}
+function share(){try{navigator.clipboard.writeText(location.href);toast("تم نسخ الرابط")}catch(e){toast("انسخ الرابط من المتصفح")}}
 /* ===== accounts ===== */
-function loginPage(){$("app").innerHTML='<div class="box login"><img class="lg" style="width:84px;height:84px" src="'+LOGO+'" alt=""><h2 style="justify-content:center">تسجيل الدخول</h2><label class="fld">الإيميل<input id="em" type="email" autocomplete="off" placeholder="Email"></label><label class="fld">كلمة السر<input id="pw" type="password" autocomplete="off" placeholder="Password"></label><div class="err" id="err"></div><button class="btn g" style="width:100%;margin-top:6px" onclick="doLogin()">دخول</button><p style="margin-top:14px;font-size:13px;color:var(--mu)">ما عندك حساب؟ <a href="#signup" style="color:var(--g)">أنشئ حساب</a></p></div>'}
+function loginPage(){$("app").innerHTML='<div class="box login"><img class="lg" style="width:84px;height:84px" src="'+LOGO+'" alt=""><h2 style="justify-content:center">تسجيل الدخول</h2><label class="fld">الإيميل<input id="em" type="email" autocomplete="off" placeholder="Email"></label><label class="fld">كلمة السر<input id="pw" type="password" autocomplete="off" placeholder="Password"></label><div class="err" id="err"></div><button class="btn g" style="width:100%;margin-top:6px" onclick="doLogin()">'+I("key",20)+' دخول</button><p style="margin-top:14px;font-size:13px;color:var(--mu)">ما عندك حساب؟ <a href="#signup" style="color:var(--g)">أنشئ حساب</a></p></div>'}
 async function doLogin(){
-  var e=$("em").value.trim().toLowerCase(),p=$("pw").value,er=$("err");er.textContent="⏳ ...";
+  var e=$("em").value.trim().toLowerCase(),p=$("pw").value,er=$("err");er.innerHTML=I("cycle",18)+" ...";
   try{var j;try{j=await au("signInWithPassword",e,p)}catch(x){if(e===EMAIL&&/EMAIL_NOT_FOUND|INVALID_LOGIN_CREDENTIALS/.test(x.message)){try{j=await au("signUp",e,p)}catch(y){throw new Error("INVALID_LOGIN_CREDENTIALS")}}else throw x}
-    setS(j);toast("تم تسجيل الدخول ✅");go(isAdmin()?"admin":"me")}catch(x){er.textContent=errTxt(x.message)}
+    setS(j);toast("تم تسجيل الدخول");go(isAdmin()?"admin":"me")}catch(x){er.textContent=errTxt(x.message)}
 }
-function signupPage(){$("app").innerHTML='<div class="box login"><img class="lg" style="width:84px;height:84px" src="'+LOGO+'" alt=""><h2 style="justify-content:center">إنشاء حساب</h2><label class="fld">الإيميل<input id="em" type="email" autocomplete="off" placeholder="Email"></label><label class="fld">كلمة السر (6 أحرف أو أكثر)<input id="pw" type="password" autocomplete="off" placeholder="Password"></label><div class="err" id="err"></div><button class="btn g" style="width:100%;margin-top:6px" onclick="doSignup()">أكمل إنشاء الحساب</button></div>'}
-async function doSignup(){var er=$("err");er.textContent="⏳ ...";try{var j=await au("signUp",$("em").value.trim().toLowerCase(),$("pw").value);setS(j);toast("تم إنشاء الحساب ✅ أكمل ملفك الشخصي");go("me")}catch(x){er.textContent=errTxt(x.message)}}
+function signupPage(){$("app").innerHTML='<div class="box login"><img class="lg" style="width:84px;height:84px" src="'+LOGO+'" alt=""><h2 style="justify-content:center">إنشاء حساب</h2><label class="fld">الإيميل<input id="em" type="email" autocomplete="off" placeholder="Email"></label><label class="fld">كلمة السر (6 أحرف أو أكثر)<input id="pw" type="password" autocomplete="off" placeholder="Password"></label><div class="err" id="err"></div><button class="btn g" style="width:100%;margin-top:6px" onclick="doSignup()">'+I("star",20)+' أكمل إنشاء الحساب</button></div>'}
+async function doSignup(){var er=$("err");er.innerHTML=I("cycle",18)+" ...";try{var j=await au("signUp",$("em").value.trim().toLowerCase(),$("pw").value);setS(j);toast("تم إنشاء الحساب، أكمل ملفك الشخصي");go("me")}catch(x){er.textContent=errTxt(x.message)}}
 var myAv=null;
 async function mePage(){
   if(!S){go("login");return}
-  $("app").innerHTML='<div class="empty">⏳</div>';
+  $("app").innerHTML='<div class="empty">'+I("cycle",36)+'</div>';
   var u;try{u=await db("GET","users/"+S.u)||{}}catch(e){u={}}
   myAv=u.av||"";var f=function(id,l,v,ph){return '<label class="fld">'+l+'<input id="'+id+'" value="'+esc(v||"")+'" placeholder="'+(ph||"")+'"></label>'};
-  $("app").innerHTML='<div class="box prof"><div id="avp">'+avHtml(u,96)+'</div><label class="fld" style="text-align:right">📷 إضافة صورة<input id="m_i" type="file" accept="image/*"></label>'+f("m_n","اسم الحساب",u.name)+f("m_u","اليوزر (حروف إنجليزية صغيرة وأرقام و _ ، 3 أحرف أو أكثر)",u.user,"example_123")+f("m_t","يوزر قناة تلجرام (بدون @)",u.tg)+'<div class="err" id="err"></div><div class="row" style="margin-top:12px;justify-content:center"><button class="btn g" id="msv" onclick="saveMe()">💾 حفظ</button>'+(u.user?'<button class="btn d" onclick="go(\'u-'+esc(u.user)+'\')">عرض ملفي</button>':'')+'</div></div>';
+  $("app").innerHTML='<div class="box prof"><div id="avp">'+avHtml(u,96)+'</div><label class="fld" style="text-align:right">'+I("frame",18)+' إضافة صورة<input id="m_i" type="file" accept="image/*"></label>'+f("m_n","اسم الحساب",u.name)+f("m_u","اليوزر (حروف إنجليزية صغيرة وأرقام و _ ، 3 أحرف أو أكثر)",u.user,"example_123")+f("m_t","يوزر قناة تلجرام (بدون @)",u.tg)+'<div class="err" id="err"></div><div class="row" style="margin-top:12px;justify-content:center"><button class="btn g" id="msv" onclick="saveMe()">'+I("emerald",20)+' حفظ</button>'+(u.user?'<button class="btn d" onclick="go(\'u-'+esc(u.user)+'\')">عرض ملفي</button>':'')+'</div></div>';
   $("m_i").onchange=async function(){var f=this.files[0];if(f){var d=await rd(f,160);if(d){myAv=d;$("avp").innerHTML=avHtml({av:d},96)}}};
 }
 async function saveMe(){
   var er=$("err"),n=$("m_n").value.trim(),un=$("m_u").value.trim().toLowerCase().replace(/^@/,""),tg=$("m_t").value.trim().replace(/^@/,"");
   if(!/^[a-z0-9_]{3,20}$/.test(un)){er.textContent="اليوزر: 3 أحرف أو أكثر، حروف إنجليزية صغيرة وأرقام و _ فقط";return}
   if(!n){er.textContent="اكتب اسم الحساب";return}
-  var b=$("msv");b.disabled=true;er.textContent="⏳ ...";
+  var b=$("msv");b.disabled=true;er.innerHTML=I("cycle",18)+" ...";
   try{var old=(await db("GET","users/"+S.u)||{}).user,ex=await db("GET","usernames/"+un);
     if(ex&&ex!==S.u){er.textContent="هذا اليوزر مأخوذ";b.disabled=false;return}
     if(!ex)await db("PUT","usernames/"+un,S.u);
     if(old&&old!==un)try{await db("DELETE","usernames/"+old)}catch(e){}
-    await db("PUT","users/"+S.u,{name:n,user:un,tg:tg,av:myAv||""});UC={};toast("تم الحفظ ✅");go("u-"+un)}
+    await db("PUT","users/"+S.u,{name:n,user:un,tg:tg,av:myAv||""});UC={};toast("تم الحفظ");go("u-"+un)}
   catch(e){er.textContent="فشل الحفظ: "+e.message;b.disabled=false}
 }
 async function profilePage(u){
-  $("app").innerHTML='<div class="empty">⏳</div>';var x;
+  $("app").innerHTML='<div class="empty">'+I("cycle",36)+'</div>';var x;
   try{x=await getU(u)}catch(e){$("app").innerHTML='<div class="empty">تعذر الاتصال بـ Firebase</div>';return}
-  if(!x){$("app").innerHTML='<div class="empty">الحساب غير موجود</div>';return}
+  if(!x){$("app").innerHTML='<div class="empty">'+I("creeper",48)+'<p style="margin-top:10px">الحساب غير موجود</p></div>';return}
   var fol={},isF=false;try{fol=await db("GET","followers/"+x.uid)||{};isF=!!(S&&fol[S.u])}catch(e){}
   var n=Object.keys(fol).length,mine=S&&S.u===x.uid,posts=mods.filter(function(m){return m.pub==u});
-  var h='<div class="box prof">'+avHtml(x,96)+'<h2 class="pn" style="justify-content:center;margin-bottom:2px">'+esc(x.name||u)+(x.v?vbadge():"")+'</h2><div class="pu">@'+esc(u)+'</div>'+(x.tg?'<div style="margin-top:8px"><a class="tgi" href="https://t.me/'+esc(x.tg)+'" target="_blank" rel="noopener" style="color:#29b6f6;text-decoration:none"><svg viewBox="0 0 24 24"><path d="M9.8 15.6l-.4 4.2c.6 0 .9-.3 1.2-.6l2.9-2.7 6 4.4c1.1.6 1.9.3 2.2-1L23.9 4c.4-1.6-.6-2.3-1.7-1.9L1.5 10c-1.5.6-1.5 1.5-.3 1.9l5.3 1.7L18.8 6c.6-.4 1.1-.2.7.2z"/></svg> @'+esc(x.tg)+'</a></div>':'')+'<div class="info" style="margin-top:14px"><div class="in c-b"><small>المتابعين</small><b style="font-size:22px" id="fn">'+n+'</b></div><div class="in c-g"><small>المنشورات</small><b style="font-size:22px">'+posts.length+'</b></div></div><div class="row" style="margin-top:12px;justify-content:center">'+(mine?'<button class="btn d" onclick="go(\'me\')">✏️ تعديل ملفي</button>':'<button class="btn g" id="fb" onclick="toggleF(\''+x.uid+'\','+n+')">'+(isF?"✓ متابَع":"+ متابعة")+'</button>')+'</div></div><h2>'+ic("totem")+' المنشورات</h2>'+(posts.length?'<div class="grid">'+posts.map(card).join("")+'</div>':'<div class="empty">لا توجد منشورات</div>');
+  var h='<div class="box prof">'+avHtml(x,96)+'<h2 class="pn" style="justify-content:center;margin-bottom:2px">'+esc(x.name||u)+(x.v?vbadge():"")+'</h2><div class="pu">@'+esc(u)+'</div>'+(x.tg?'<div style="margin-top:8px"><a class="tgi" href="https://t.me/'+esc(x.tg)+'" target="_blank" rel="noopener" style="color:#29b6f6;text-decoration:none"><svg viewBox="0 0 24 24"><path d="M9.8 15.6l-.4 4.2c.6 0 .9-.3 1.2-.6l2.9-2.7 6 4.4c1.1.6 1.9.3 2.2-1L23.9 4c.4-1.6-.6-2.3-1.7-1.9L1.5 10c-1.5.6-1.5 1.5-.3 1.9l5.3 1.7L18.8 6c.6-.4 1.1-.2.7.2z"/></svg> @'+esc(x.tg)+'</a></div>':'')+'<div class="info" style="margin-top:14px"><div class="in c-b"><small>المتابعين</small><b style="font-size:22px" id="fn">'+n+'</b></div><div class="in c-g"><small>المنشورات</small><b style="font-size:22px">'+posts.length+'</b></div></div><div class="row" style="margin-top:12px;justify-content:center">'+(mine?'<button class="btn d" onclick="go(\'me\')">'+I("pencil",18)+' تعديل ملفي</button>':'<button class="btn g" id="fb" onclick="toggleF(\''+x.uid+'\','+n+')">'+(isF?I("check",18)+" متابَع":"+ متابعة")+'</button>')+'</div></div><h2>'+ic("totem",28)+' المنشورات</h2>'+(posts.length?'<div class="grid">'+posts.map(card).join("")+'</div>':'<div class="empty">لا توجد منشورات</div>');
   $("app").innerHTML=h;window._fs={f:isF,n:n};decorPubs();
 }
 async function toggleF(t,n){
   if(!S){toast("سجّل الدخول أولاً");go("login");return}
   var b=$("fb");b.disabled=true;
   try{if(window._fs.f){await db("DELETE","follows/"+S.u+"/"+t);await db("DELETE","followers/"+t+"/"+S.u);window._fs.f=false;window._fs.n--}else{await db("PUT","follows/"+S.u+"/"+t,true);await db("PUT","followers/"+t+"/"+S.u,true);window._fs.f=true;window._fs.n++}
-    b.textContent=window._fs.f?"✓ متابَع":"+ متابعة";$("fn").textContent=window._fs.n}catch(e){toast("فشلت المتابعة")}
+    b.innerHTML=window._fs.f?I("check",18)+" متابَع":"+ متابعة";$("fn").textContent=window._fs.n}catch(e){toast("فشلت المتابعة")}
   b.disabled=false;
 }
 /* ===== admin ===== */
 function f2(id,l,v,t){return '<label class="fld">'+l+'<input id="'+id+'" type="'+(t||"text")+'" value="'+esc(v||"")+'"></label>'}
-function verBox(){return '<div class="box"><h3>'+vbadge()+' توثيق حساب</h3>'+f2("v_u","اليوزر (بدون @)","")+'<div class="row" style="margin-top:12px"><button class="btn g" onclick="doVer(true)">✔ إضافة توثيق</button><button class="btn" onclick="doVer(false)">✖ إلغاء التوثيق</button></div></div>'}
+function verBox(){return '<div class="box"><h3>'+vbadge()+' توثيق حساب</h3>'+f2("v_u","اليوزر (بدون @)","")+'<div class="row" style="margin-top:12px"><button class="btn g" onclick="doVer(true)">'+I("check",18)+' إضافة توثيق</button><button class="btn" onclick="doVer(false)">'+I("tnt",18)+' إلغاء التوثيق</button></div></div>'}
 async function doVer(on){
   var u=$("v_u").value.trim().toLowerCase().replace(/^@/,"");if(!u){toast("اكتب اليوزر");return}
   try{var uid=await db("GET","usernames/"+u);if(!uid){toast("اليوزر غير موجود");return}
-    if(on)await db("PUT","verified/"+uid,true);else await db("DELETE","verified/"+uid);UC={};toast(on?"تم التوثيق ✅":"تم إلغاء التوثيق")}
+    if(on)await db("PUT","verified/"+uid,true);else await db("DELETE","verified/"+uid);UC={};toast(on?"تم التوثيق":"تم إلغاء التوثيق")}
   catch(e){toast("فشل: تأكد أنك مسجّل بحساب الأدمن")}
 }
-function ghBox(){return '<div class="box"><h3>⚙️ ربط GitHub (مرة واحدة)</h3>'+f2("g_o","اسم حسابك في GitHub",cfg.o)+f2("g_r","اسم الـ Repository",cfg.r)+f2("g_b","Branch (مثل main)",cfg.b||"main")+f2("g_t","Token",cfg.t,"password")+'<button class="btn g" style="margin-top:12px" onclick="saveGh()">حفظ الإعدادات</button></div>'}
-function saveGh(){cfg={o:$("g_o").value.trim(),r:$("g_r").value.trim(),b:$("g_b").value.trim()||"main",t:$("g_t").value.trim()};W("ld_gh",cfg);toast("تم الحفظ ✅")}
-function fl(e){return e.id?(e.files||[]).map(function(f,i){return '<div class="arow"><span>📦 '+esc(f.n)+'</span><button class="btn" onclick="delFile('+e.id+','+i+')">✕</button></div>'}).join(""):""}
+function ghBox(){return '<div class="box"><h3>'+I("anvil",22)+' ربط GitHub (مرة واحدة)</h3>'+f2("g_o","اسم حسابك في GitHub",cfg.o)+f2("g_r","اسم الـ Repository",cfg.r)+f2("g_b","Branch (مثل main)",cfg.b||"main")+f2("g_t","Token",cfg.t,"password")+'<button class="btn g" style="margin-top:12px" onclick="saveGh()">'+I("emerald",18)+' حفظ الإعدادات</button></div>'}
+function saveGh(){cfg={o:$("g_o").value.trim(),r:$("g_r").value.trim(),b:$("g_b").value.trim()||"main",t:$("g_t").value.trim()};W("ld_gh",cfg);toast("تم الحفظ")}
+function fl(e){return e.id?(e.files||[]).map(function(f,i){return '<div class="arow"><span>'+I("chest",20)+' '+esc(f.n)+'</span><button class="btn" onclick="delFile('+e.id+','+i+')">'+I("tnt",18)+'</button></div>'}).join(""):""}
 function adminPage(){
   if(!isAdmin()){go("login");return}
-  var e=edit&&mods.filter(function(x){return x.id==edit})[0]||{title:"",sub:"",desc:"",cat:"mods",ver:"",edition:"BEDROCK",compat:"",c1:"#ff2a3d",c2:"#19ff6b",em:"🧩"};
+  var e=edit&&mods.filter(function(x){return x.id==edit})[0]||{title:"",sub:"",desc:"",cat:"mods",ver:"",edition:"BEDROCK",compat:"",c1:"#ff2a3d",c2:"#19ff6b",em:"creeper"};
   function f(id,l,v,t){return '<label class="fld">'+l+(t=="t"?'<textarea id="'+id+'">'+esc(v)+'</textarea>':'<input id="'+id+'" value="'+esc(v)+'">')+'</label>'}
-  var h='<h2>🛠️ لوحة الأدمن</h2>'+statsHtml()+verBox()+ghBox()+'<div class="box"><h3>'+(edit?"تعديل المود":"إضافة مود جديد")+'</h3>'+f("a_t","اسم المود",e.title)+f("a_s","وصف قصير",e.sub)+f("a_d","الوصف الكامل",e.desc,"t")+'<label class="fld">القسم<select id="a_c">'+Object.keys(CATS).filter(function(k){return k!="all"}).map(function(k){return '<option value="'+k+'"'+(e.cat==k?" selected":"")+'>'+CATS[k][0]+'</option>'}).join("")+'</select></label>'+f("a_v","إصدار اللعبة",e.ver)+f("a_e","Edition",e.edition)+f("a_k","التوافق",e.compat)+f("a_p","يوزر الناشر (حساب مسجّل، بدون @)",e.pub||"")+f("a_m","إيموجي الغلاف",e.em)+f("a_1","لون 1 (مثل #ff2a3d)",e.c1)+f("a_2","لون 2 (مثل #19ff6b)",e.c2)+'<label class="fld">📦 ملفات المود (mcaddon / mcpack / zip) — تقدر تختار أكثر من ملف<input id="a_f" type="file" multiple></label>'+fl(e)+'<label class="fld">🖼️ صورة الغلاف<input id="a_i" type="file" accept="image/*"></label><label class="fld">📸 لقطات اللعب (حتى 4 صور)<input id="a_sh" type="file" accept="image/*" multiple></label><div class="row" style="margin-top:14px"><button class="btn g" id="sbtn" onclick="saveMod()">💾 حفظ</button>'+(edit?'<button class="btn d" onclick="edit=null;adminPage()">إلغاء</button>':'')+'</div></div><div class="box"><h3>المودات ('+mods.length+')</h3>';
-  mods.forEach(function(m){h+='<div class="arow"><span>'+esc(m.em)+' '+esc(m.title)+'</span><button class="btn d" onclick="edit='+m.id+';adminPage();scrollTo(0,0)">✏️</button><button class="btn" onclick="delMod('+m.id+')">🗑️</button></div>'});
+  var h='<h2>'+I("anvil",28)+' لوحة الأدمن</h2>'+statsHtml()+verBox()+ghBox()+'<div class="box"><h3>'+(edit?"تعديل المود":"إضافة مود جديد")+'</h3>'+f("a_t","اسم المود",e.title)+f("a_s","وصف قصير",e.sub)+f("a_d","الوصف الكامل",e.desc,"t")+'<label class="fld">القسم<select id="a_c">'+Object.keys(CATS).filter(function(k){return k!="all"}).map(function(k){return '<option value="'+k+'"'+(e.cat==k?" selected":"")+'>'+CATS[k][0]+'</option>'}).join("")+'</select></label>'+f("a_v","إصدار اللعبة",e.ver)+f("a_e","Edition",e.edition)+f("a_k","التوافق",e.compat)+f("a_p","يوزر الناشر (حساب مسجّل، بدون @)",e.pub||"")+'<label class="fld">رمز الغلاف (ماين كرافت)<select id="a_m">'+COVERS.map(function(k){return '<option value="'+k+'"'+(e.em==k?" selected":"")+'>'+k+'</option>'}).join("")+'</select></label>'+f("a_1","لون 1 (مثل #ff2a3d)",e.c1)+f("a_2","لون 2 (مثل #19ff6b)",e.c2)+'<label class="fld">ملفات المود (mcaddon / mcpack / zip) — تقدر تختار أكثر من ملف<input id="a_f" type="file" multiple></label>'+fl(e)+'<label class="fld">صورة الغلاف<input id="a_i" type="file" accept="image/*"></label><label class="fld">لقطات اللعب (حتى 4 صور)<input id="a_sh" type="file" accept="image/*" multiple></label><div class="row" style="margin-top:14px"><button class="btn g" id="sbtn" onclick="saveMod()">'+I("emerald",18)+' حفظ</button>'+(edit?'<button class="btn d" onclick="edit=null;adminPage()">إلغاء</button>':'')+'</div></div><div class="box"><h3>المودات ('+mods.length+')</h3>';
+  mods.forEach(function(m){h+='<div class="arow"><span>'+I(m.em,22)+' '+esc(m.title)+'</span><button class="btn d" onclick="edit='+m.id+';adminPage();scrollTo(0,0)">'+I("pencil",18)+'</button><button class="btn" onclick="delMod('+m.id+')">'+I("tnt",18)+'</button></div>'});
   $("app").innerHTML=h+'</div>';
 }
 function rd(file,w){return new Promise(function(ok){var r=new FileReader();r.onload=function(){var im=new Image();im.onload=function(){var k=Math.min(1,w/im.width),c=document.createElement("canvas");c.width=im.width*k;c.height=im.height*k;c.getContext("2d").drawImage(im,0,0,c.width,c.height);ok(c.toDataURL("image/jpeg",.72))};im.onerror=function(){ok(null)};im.src=r.result};r.readAsDataURL(file)})}
@@ -236,15 +283,15 @@ async function saveMod(){
   var b=$("sbtn");b.disabled=true;
   try{
     var m=edit?mods.filter(function(x){return x.id==edit})[0]:{id:mods.reduce(function(a,x){return Math.max(a,x.id)},0)+1,img:"",shots:[],files:[],views:0,dls:0};
-    m.title=t;m.sub=$("a_s").value;m.desc=$("a_d").value;m.cat=$("a_c").value;m.ver=$("a_v").value;m.edition=$("a_e").value;m.compat=$("a_k").value;m.em=$("a_m").value||"🧩";m.c1=$("a_1").value||"#ff2a3d";m.c2=$("a_2").value||"#19ff6b";m.pub=($("a_p").value||"").trim().toLowerCase().replace(/^@/,"");
+    m.title=t;m.sub=$("a_s").value;m.desc=$("a_d").value;m.cat=$("a_c").value;m.ver=$("a_v").value;m.edition=$("a_e").value;m.compat=$("a_k").value;m.em=$("a_m").value||"creeper";m.c1=$("a_1").value||"#ff2a3d";m.c2=$("a_2").value||"#19ff6b";m.pub=($("a_p").value||"").trim().toLowerCase().replace(/^@/,"");
     var i=$("a_i").files[0],p,d,k;
-    if(i){b.textContent="⏳ رفع الغلاف...";d=await rd(i,720);p="img/"+rid()+".jpg";await ghPut(p,d.split(",")[1],"cover");if(m.img)ghDel(m.img);m.img=p}
+    if(i){b.textContent="رفع الغلاف...";d=await rd(i,720);p="img/"+rid()+".jpg";await ghPut(p,d.split(",")[1],"cover");if(m.img)ghDel(m.img);m.img=p}
     var sh=Array.from($("a_sh").files).slice(0,4);
-    if(sh.length){b.textContent="⏳ رفع اللقطات...";m.shots=[];for(k=0;k<sh.length;k++){d=await rd(sh[k],520);p="img/"+rid()+".jpg";await ghPut(p,d.split(",")[1],"shot");m.shots.push(p)}}
+    if(sh.length){b.textContent="رفع اللقطات...";m.shots=[];for(k=0;k<sh.length;k++){d=await rd(sh[k],520);p="img/"+rid()+".jpg";await ghPut(p,d.split(",")[1],"shot");m.shots.push(p)}}
     var fs=Array.from($("a_f").files);
-    for(k=0;k<fs.length;k++){var e=(fs[k].name.split(".").pop()||"").toLowerCase();if(PKX.indexOf(e)<0){toast("نوع غير مسموح: "+fs[k].name);continue}b.textContent="⏳ رفع ملف "+(k+1)+"/"+fs.length+"...";p="files/"+rid()+"."+e;await ghPut(p,await b64f(fs[k]),"file");m.files.push({n:fs[k].name,p:p,s:fs[k].size})}
+    for(k=0;k<fs.length;k++){var e=(fs[k].name.split(".").pop()||"").toLowerCase();if(PKX.indexOf(e)<0){toast("نوع غير مسموح: "+fs[k].name);continue}b.textContent="رفع ملف "+(k+1)+"/"+fs.length+"...";p="files/"+rid()+"."+e;await ghPut(p,await b64f(fs[k]),"file");m.files.push({n:fs[k].name,p:p,s:fs[k].size})}
     if(!edit)mods.unshift(m);
-    b.textContent="⏳ حفظ...";await pubJson();edit=null;toast("تم الحفظ ✅ يظهر للزوار خلال دقيقة تقريباً");
+    b.textContent="حفظ...";await pubJson();edit=null;toast("تم الحفظ، يظهر للزوار خلال دقيقة تقريباً");
   }catch(e){toast("فشل الرفع: تحقق من التوكن واسم الحساب والـ Repository")}
   adminPage()
 }
@@ -256,11 +303,11 @@ function ck(p){return p.replace(/^stats\//,"").replace(/\//g,"_")}
 function fbInc(p){try{return fetch(CNT+"/hit/"+CNS+"/"+ck(p)).catch(function(){})}catch(e){return Promise.resolve()}}
 async function cget(k){try{var r=await fetch(CNT+"/get/"+CNS+"/"+k);if(r.status==404)return 0;if(!r.ok)return null;var j=await r.json();return j.value||0}catch(e){return null}}
 function fbView(id){var k="vw"+id;try{if(sessionStorage.getItem(k))return Promise.resolve();sessionStorage.setItem(k,1)}catch(e){}return Promise.all([fbInc("stats/views"),fbInc("m/"+id+"/v")])}
-function statsInner(){var s=stats||{};function v(x){return x==null?"—":x}var it=[["👥 دخول اليوم",s.today,"c-g"],["🌍 إجمالي الدخول",s.total,"c-r"],["👁 مشاهدات المودات",s.views,"c-b"],["⬇ إجمالي التحميلات",s.dls,"c-y"],["📦 عدد الملفات",s.files,"c-p"]];return '<div class="info">'+it.map(function(x){return '<div class="in '+x[2]+'"><small>'+x[0]+'</small><b style="font-size:24px">'+v(x[1])+'</b></div>'}).join("")+'</div>'}
-function statsHtml(){return '<div id="stw">'+statsInner()+'</div><button class="btn d" style="margin-top:10px" onclick="refreshStats(1)">🔄 تحديث الأرقام</button>'}
-async function refreshStats(m){var r=await Promise.all(["total","views","dls","days_"+td()].map(cget));stats.total=r[0];stats.views=r[1];stats.dls=r[2];stats.today=r[3];var el=$("stw");if(el)el.innerHTML=statsInner();if(r.indexOf(null)>-1)toast("تعذر الاتصال بخدمة العداد، جرّب بعد قليل");else if(m)toast("تم التحديث ✅")}
-async function updCounts(id){try{await window.vp}catch(e){}window.vp=null;var v=await cget("m_"+id+"_v"),d=await cget("m_"+id+"_d"),a=$("pv"),b=$("pd");if(a&&v!=null)a.textContent="👁 "+v;if(b&&d!=null)b.textContent="⬇ "+d}
-function dlAll(id){var m=mods.filter(function(x){return x.id==id})[0];if(!m||!m.files||!m.files.length){toast("لا يوجد ملف لهذا المود");return}m.dls=(m.dls||0)+1;fbInc("stats/dls");fbInc("m/"+id+"/d");var pd=$("pd");if(pd)pd.textContent="⬇ "+m.dls;m.files.forEach(function(f,i){setTimeout(function(){var a=document.createElement("a");a.href=f.p;a.download=f.n;document.body.appendChild(a);a.click();a.remove()},i*900)});toast("بدأ التحميل ⬇")}
+function statsInner(){var s=stats||{};function v(x){return x==null?"—":x}var it=[[I("skin",16)+" دخول اليوم",s.today,"c-g"],[I("earth",16)+" إجمالي الدخول",s.total,"c-r"],[I("eye",16)+" مشاهدات المودات",s.views,"c-b"],[I("download",16)+" إجمالي التحميلات",s.dls,"c-y"],[I("chest",16)+" عدد الملفات",s.files,"c-p"]];return '<div class="info">'+it.map(function(x){return '<div class="in '+x[2]+'"><small>'+x[0]+'</small><b style="font-size:24px">'+v(x[1])+'</b></div>'}).join("")+'</div>'}
+function statsHtml(){return '<div id="stw">'+statsInner()+'</div><button class="btn d" style="margin-top:10px" onclick="refreshStats(1)">'+I("cycle",18)+' تحديث الأرقام</button>'}
+async function refreshStats(m){var r=await Promise.all(["total","views","dls","days_"+td()].map(cget));stats.total=r[0];stats.views=r[1];stats.dls=r[2];stats.today=r[3];var el=$("stw");if(el)el.innerHTML=statsInner();if(r.indexOf(null)>-1)toast("تعذر الاتصال بخدمة العداد، جرّب بعد قليل");else if(m)toast("تم التحديث")}
+async function updCounts(id){try{await window.vp}catch(e){}window.vp=null;var v=await cget("m_"+id+"_v"),d=await cget("m_"+id+"_d"),a=$("pv"),b=$("pd");if(a&&v!=null)a.innerHTML=I("eye",14)+" "+v;if(b&&d!=null)b.innerHTML=I("download",14)+" "+d}
+function dlAll(id){var m=mods.filter(function(x){return x.id==id})[0];if(!m||!m.files||!m.files.length){toast("لا يوجد ملف لهذا المود");return}m.dls=(m.dls||0)+1;fbInc("stats/dls");fbInc("m/"+id+"/d");var pd=$("pd");if(pd)pd.innerHTML=I("download",14)+" "+m.dls;m.files.forEach(function(f,i){setTimeout(function(){var a=document.createElement("a");a.href=f.p;a.download=f.n;document.body.appendChild(a);a.click();a.remove()},i*900)});toast("بدأ التحميل")}
 async function loadAll(){
   try{var r=await fetch("mods.json?t="+Date.now());mods=r.ok?await r.json():[]}catch(e){mods=[]}
   if(!Array.isArray(mods))mods=[];
