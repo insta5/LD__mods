@@ -1,5 +1,28 @@
 [
     {
+        "id": 30,
+        "title": "سلايم بوت",
+        "sub": "يضيف لك جميع اضافات السلايم",
+        "desc": "يضيف لك جميع اضافات السلايم",
+        "cat": "mods",
+        "ver": "1.21.52",
+        "edition": "BEDROCK",
+        "compat": "+1.21",
+        "em": "creeper",
+        "c1": "#ff2a3d",
+        "c2": "#19ff6b",
+        "img": "img/mvjxj5gt3efb.jpg",
+        "shots": [],
+        "files": [
+            {
+                "n": "Useful_SlimeV1_0.mcaddon",
+                "p": "files/mvjxj77vd5ff.mcaddon",
+                "s": 123041
+            }
+        ],
+        "pub": "xxx"
+    },
+    {
         "id": 29,
         "title": "تحسين الاصوات",
         "sub": "😀 تعمل هذه الحزمة على تحسين الأصوات لتبدو أكثر وضوحًا وإرضاء",
