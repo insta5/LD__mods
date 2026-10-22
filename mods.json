@@ -849,7 +849,7 @@
   "ver": "1.26.52",
   "edition": "BEDROCK",
   "compat": "1.26.50 - 1.26.60",
-  "em": "🧩",
+  "em": "creeper",
   "c1": "#ff2a3d",
   "c2": "#19ff6b",
   "img": "img/mvhc6ht6ubde.jpg",
@@ -861,6 +861,6 @@
     "s": 13959
    }
   ],
-  "pub": ""
+  "pub": "iii"
  }
 ]
