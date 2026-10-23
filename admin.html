@@ -32,6 +32,7 @@ h2{font-size:20px;margin:6px 0 4px}h3{margin-bottom:6px}
 <main id="app"></main>
 <script>
 var FBK="AIzaSyBwtU1sfXOet8JpjKyVa7TqQ6Goy_8nCME",FBDB="https://ldmods-d5b7b-default-rtdb.firebaseio.com",EMAIL="ld_adddon@gmial.com";
+var WORKER="https://ldaddons.filexqw1-49e.workers.dev";
 var CNT="https://abacus.jasoncameron.dev",CNS="ld"+location.hostname.replace(/[^a-z0-9]/gi,"").toLowerCase().slice(0,40);
 var CATS={mods:"مودات",skins:"سكنات",maps:"خرائط",resource:"ريسورس باك",servers:"سيرفرات"};
 var COVERS=["creeper","diamond","orb","flame","totem","chest","sword","pickaxe","map","skin","frame","crown","grass","heart","anvil","star","emerald","tnt"];
@@ -107,20 +108,29 @@ function panel(){
   mods.forEach(function(m){h+='<div class="arow"><span>'+esc(m.title)+' <small style="color:var(--mu)">'+edOf(m)+(m.loader?' • '+esc(m.loader):'')+'</small></span><button class="btn d" onclick="edit='+m.id+';panel();scrollTo(0,0)">✏</button><button class="btn" onclick="delMod('+m.id+')">🗑</button></div>'});
   $("app").innerHTML=h+'</div>';
 }
+var CATEN={mods:"Mods",skins:"Skins",maps:"Maps",resource:"Resource Packs",servers:"Servers"};
+async function notifyTG(m,cover64){
+  if(!WORKER||!cover64)return;
+  try{
+    var t=await tok();if(!t)return;
+    var r=await fetch(WORKER,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({token:t,title:m.title,ver:m.ver,edition:edOf(m),loader:m.loader||"",pub:m.pub?"@"+m.pub:"LD Team",cat:CATEN[m.cat]||"Mods",img:cover64,url:location.origin+location.pathname.replace(/[^\/]*$/,"")+"#mod-"+m.id})});
+    if(!r.ok)toast("انحفظ المود لكن فشل إشعار تلجرام")
+  }catch(e){toast("انحفظ المود لكن فشل إشعار تلجرام")}
+}
 async function saveMod(){
   if(!ghOk())return;var t=$("a_t").value.trim();if(!t){toast("اكتب اسم المود");return}
-  var b=$("sbtn");b.disabled=true;
+  var b=$("sbtn");b.disabled=true;var isNew=!edit,cv64=null;
   try{
     var m=edit?mods.filter(function(x){return x.id==edit})[0]:{id:mods.reduce(function(a,x){return Math.max(a,x.id)},0)+1,img:"",shots:[],files:[]};
     m.title=t;m.sub=$("a_s").value;m.desc=$("a_d").value;m.cat=$("a_c").value;m.ver=$("a_v").value;m.edition=$("a_e").value==="JAVA"?"JAVA":"BEDROCK";m.loader=m.edition==="JAVA"?$("a_l").value:"";m.compat=$("a_k").value;m.em=$("a_m").value||"creeper";m.c1=$("a_1").value||"#ff2a3d";m.c2=$("a_2").value||"#19ff6b";m.pub=($("a_p").value||"").trim().toLowerCase().replace(/^@/,"");
     var i=$("a_i").files[0],p,d,k;
-    if(i){b.textContent="رفع الغلاف...";d=await rd(i,720);p="img/"+rid()+".jpg";await ghPut(p,d.split(",")[1],"cover");if(m.img)ghDel(m.img);m.img=p}
+    if(i){b.textContent="رفع الغلاف...";d=await rd(i,720);cv64=d.split(",")[1];p="img/"+rid()+".jpg";await ghPut(p,d.split(",")[1],"cover");if(m.img)ghDel(m.img);m.img=p}
     var sh=Array.from($("a_sh").files).slice(0,4);
     if(sh.length){b.textContent="رفع اللقطات...";m.shots=[];for(k=0;k<sh.length;k++){d=await rd(sh[k],520);p="img/"+rid()+".jpg";await ghPut(p,d.split(",")[1],"shot");m.shots.push(p)}}
     var fs=Array.from($("a_f").files);
     for(k=0;k<fs.length;k++){var x=(fs[k].name.split(".").pop()||"").toLowerCase();if(PKX.indexOf(x)<0){toast("نوع غير مسموح: "+fs[k].name);continue}b.textContent="رفع ملف "+(k+1)+"/"+fs.length+"...";p="files/"+rid()+"."+x;await ghPut(p,await b64f(fs[k]),"file");m.files.push({n:fs[k].name,p:p,s:fs[k].size})}
     if(!edit)mods.unshift(m);
-    b.textContent="حفظ...";await pubJson();edit=null;toast("تم الحفظ، يظهر للزوار خلال دقيقة تقريباً");
+    b.textContent="حفظ...";await pubJson();if(isNew)await notifyTG(m,cv64);edit=null;toast("تم الحفظ، يظهر للزوار خلال دقيقة تقريباً");
   }catch(e){toast("فشل الرفع: تحقق من التوكن والـ Repository")}
   panel()
 }
