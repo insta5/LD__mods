@@ -35,7 +35,7 @@ var FBK="AIzaSyBwtU1sfXOet8JpjKyVa7TqQ6Goy_8nCME",FBDB="https://ldmods-d5b7b-def
 var CNT="https://abacus.jasoncameron.dev",CNS="ld"+location.hostname.replace(/[^a-z0-9]/gi,"").toLowerCase().slice(0,40);
 var CATS={mods:"مودات",skins:"سكنات",maps:"خرائط",resource:"ريسورس باك",servers:"سيرفرات"};
 var COVERS=["creeper","diamond","orb","flame","totem","chest","sword","pickaxe","map","skin","frame","crown","grass","heart","anvil","star","emerald","tnt"];
-var PKX=["mcaddon","mcpack","mcworld","mctemplate","zip"];
+var PKX=["mcaddon","mcpack","mcworld","mctemplate","zip","jar"];
 var mods=[],edit=null,stats={},S=null,cfg={};
 function $(i){return document.getElementById(i)}
 function J(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}}
@@ -44,6 +44,7 @@ function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return
 function toast(t){var d=document.createElement("div");d.className="toast";d.textContent=t;document.body.appendChild(d);setTimeout(function(){d.remove()},2800)}
 S=J("ldadm_s");cfg=J("ld_gh")||{};
 function isAdmin(){return !!S&&S.e===EMAIL}
+function edOf(m){return String(m.edition||"BEDROCK").toUpperCase()==="JAVA"?"JAVA":"BEDROCK"}
 /* ===== Firebase ===== */
 async function au(m,e,p){var r=await fetch("https://identitytoolkit.googleapis.com/v1/accounts:"+m+"?key="+FBK,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({email:e,password:p,returnSecureToken:true})});var j=await r.json();if(j.error)throw new Error(j.error.message);return j}
 async function tok(){if(!S)return null;if(Date.now()>S.x){try{var r=await fetch("https://securetoken.googleapis.com/v1/token?key="+FBK,{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:"grant_type=refresh_token&refresh_token="+S.r});var j=await r.json();if(j.error)throw 0;S.t=j.id_token;S.r=j.refresh_token;S.x=Date.now()+(+j.expires_in-60)*1000;W("ldadm_s",S)}catch(e){S=null;return null}}return S.t}
@@ -67,7 +68,7 @@ async function ghDel(p){try{var s=await ghSha(p);if(s)await fetch(ghU(p),{method
 function b64f(f){return new Promise(function(ok){var r=new FileReader();r.onload=function(){ok(r.result.split(",")[1])};r.readAsDataURL(f)})}
 function rd(file,w){return new Promise(function(ok){var r=new FileReader();r.onload=function(){var im=new Image();im.onload=function(){var k=Math.min(1,w/im.width),c=document.createElement("canvas");c.width=im.width*k;c.height=im.height*k;c.getContext("2d").drawImage(im,0,0,c.width,c.height);ok(c.toDataURL("image/jpeg",.72))};im.onerror=function(){ok(null)};im.src=r.result};r.readAsDataURL(file)})}
 function rid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,6)}
-function clean(m){return{id:m.id,title:m.title,sub:m.sub,desc:m.desc,cat:m.cat,ver:m.ver,edition:m.edition,compat:m.compat,em:m.em,c1:m.c1,c2:m.c2,img:m.img||"",shots:m.shots||[],files:m.files||[],pub:m.pub||""}}
+function clean(m){return{id:m.id,title:m.title,sub:m.sub,desc:m.desc,cat:m.cat,ver:m.ver,edition:m.edition,loader:m.loader||"",compat:m.compat,em:m.em,c1:m.c1,c2:m.c2,img:m.img||"",shots:m.shots||[],files:m.files||[],pub:m.pub||""}}
 async function pubJson(){await ghPut("mods.json",btoa(unescape(encodeURIComponent(JSON.stringify(mods.map(clean),null,1)))),"update mods")}
 function ghOk(){if(!cfg.o||!cfg.r||!cfg.t){toast("أدخل إعدادات GitHub أولاً");return false}return true}
 function saveGh(){cfg={o:$("g_o").value.trim(),r:$("g_r").value.trim(),b:$("g_b").value.trim()||"main",t:$("g_t").value.trim()};W("ld_gh",cfg);toast("تم الحفظ")}
@@ -86,6 +87,8 @@ async function doVer(on){
 /* ===== panel ===== */
 function f2(id,l,v,t){return '<label class="fld">'+l+'<input id="'+id+'" type="'+(t||"text")+'" value="'+esc(v||"")+'"></label>'}
 function fl(e){return e.id?(e.files||[]).map(function(f,i){return '<div class="arow"><span>📦 '+esc(f.n)+'</span><button class="btn" onclick="delFile('+e.id+','+i+')">🗑</button></div>'}).join(""):""}
+function edSel(e){return '<label class="fld">النسخة (Edition)<select id="a_e"><option value="BEDROCK"'+(edOf(e)=="BEDROCK"?" selected":"")+'>Bedrock</option><option value="JAVA"'+(edOf(e)=="JAVA"?" selected":"")+'>Java</option></select></label>'}
+function ldSel(e){var l=String(e.loader||"").toUpperCase();return '<label class="fld">اللودر (لمودات جافا فقط)<select id="a_l"><option value="">بدون</option><option value="FORGE"'+(l=="FORGE"?" selected":"")+'>Forge</option><option value="FABRIC"'+(l=="FABRIC"?" selected":"")+'>Fabric</option></select></label>'}
 function panel(){
   var e=edit&&mods.filter(function(x){return x.id==edit})[0]||{title:"",sub:"",desc:"",cat:"mods",ver:"",edition:"BEDROCK",compat:"",c1:"#ff2a3d",c2:"#19ff6b",em:"creeper"};
   function f(id,l,v,t){return '<label class="fld">'+l+(t=="t"?'<textarea id="'+id+'">'+esc(v)+'</textarea>':'<input id="'+id+'" value="'+esc(v)+'">')+'</label>'}
@@ -94,14 +97,14 @@ function panel(){
   +'<div class="box"><h3>ربط GitHub (مرة واحدة)</h3>'+f2("g_o","اسم حسابك في GitHub",cfg.o)+f2("g_r","اسم الـ Repository",cfg.r)+f2("g_b","Branch",cfg.b||"main")+f2("g_t","Token",cfg.t,"password")+'<button class="btn g" style="margin-top:12px" onclick="saveGh()">حفظ الإعدادات</button></div>'
   +'<div class="box"><h3>'+(edit?"تعديل المود":"إضافة مود جديد")+'</h3>'+f("a_t","اسم المود",e.title)+f("a_s","وصف قصير",e.sub)+f("a_d","الوصف الكامل",e.desc,"t")
   +'<label class="fld">القسم<select id="a_c">'+Object.keys(CATS).map(function(k){return '<option value="'+k+'"'+(e.cat==k?" selected":"")+'>'+CATS[k]+'</option>'}).join("")+'</select></label>'
-  +f("a_v","إصدار اللعبة",e.ver)+f("a_e","Edition",e.edition)+f("a_k","التوافق",e.compat)+f("a_p","يوزر الناشر (بدون @)",e.pub||"")
+  +f("a_v","إصدار اللعبة",e.ver)+edSel(e)+ldSel(e)+f("a_k","التوافق",e.compat)+f("a_p","يوزر الناشر (بدون @)",e.pub||"")
   +'<label class="fld">رمز الغلاف<select id="a_m">'+COVERS.map(function(k){return '<option value="'+k+'"'+(e.em==k?" selected":"")+'>'+k+'</option>'}).join("")+'</select></label>'
   +f("a_1","لون 1",e.c1)+f("a_2","لون 2",e.c2)
-  +'<label class="fld">ملفات المود (mcaddon / mcpack / zip)<input id="a_f" type="file" multiple></label>'+fl(e)
+  +'<label class="fld">ملفات المود (mcaddon / mcpack / zip / jar)<input id="a_f" type="file" multiple></label>'+fl(e)
   +'<label class="fld">صورة الغلاف<input id="a_i" type="file" accept="image/*"></label><label class="fld">لقطات اللعب (حتى 4)<input id="a_sh" type="file" accept="image/*" multiple></label>'
   +'<div class="row" style="margin-top:14px"><button class="btn g" id="sbtn" onclick="saveMod()">حفظ</button>'+(edit?'<button class="btn d" onclick="edit=null;panel()">إلغاء</button>':'')+'</div></div>'
   +'<div class="box"><h3>المودات ('+mods.length+')</h3>';
-  mods.forEach(function(m){h+='<div class="arow"><span>'+esc(m.title)+'</span><button class="btn d" onclick="edit='+m.id+';panel();scrollTo(0,0)">✏</button><button class="btn" onclick="delMod('+m.id+')">🗑</button></div>'});
+  mods.forEach(function(m){h+='<div class="arow"><span>'+esc(m.title)+' <small style="color:var(--mu)">'+edOf(m)+(m.loader?' • '+esc(m.loader):'')+'</small></span><button class="btn d" onclick="edit='+m.id+';panel();scrollTo(0,0)">✏</button><button class="btn" onclick="delMod('+m.id+')">🗑</button></div>'});
   $("app").innerHTML=h+'</div>';
 }
 async function saveMod(){
@@ -109,7 +112,7 @@ async function saveMod(){
   var b=$("sbtn");b.disabled=true;
   try{
     var m=edit?mods.filter(function(x){return x.id==edit})[0]:{id:mods.reduce(function(a,x){return Math.max(a,x.id)},0)+1,img:"",shots:[],files:[]};
-    m.title=t;m.sub=$("a_s").value;m.desc=$("a_d").value;m.cat=$("a_c").value;m.ver=$("a_v").value;m.edition=$("a_e").value;m.compat=$("a_k").value;m.em=$("a_m").value||"creeper";m.c1=$("a_1").value||"#ff2a3d";m.c2=$("a_2").value||"#19ff6b";m.pub=($("a_p").value||"").trim().toLowerCase().replace(/^@/,"");
+    m.title=t;m.sub=$("a_s").value;m.desc=$("a_d").value;m.cat=$("a_c").value;m.ver=$("a_v").value;m.edition=$("a_e").value==="JAVA"?"JAVA":"BEDROCK";m.loader=m.edition==="JAVA"?$("a_l").value:"";m.compat=$("a_k").value;m.em=$("a_m").value||"creeper";m.c1=$("a_1").value||"#ff2a3d";m.c2=$("a_2").value||"#19ff6b";m.pub=($("a_p").value||"").trim().toLowerCase().replace(/^@/,"");
     var i=$("a_i").files[0],p,d,k;
     if(i){b.textContent="رفع الغلاف...";d=await rd(i,720);p="img/"+rid()+".jpg";await ghPut(p,d.split(",")[1],"cover");if(m.img)ghDel(m.img);m.img=p}
     var sh=Array.from($("a_sh").files).slice(0,4);
