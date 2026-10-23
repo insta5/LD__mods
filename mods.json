@@ -7,7 +7,7 @@
   "cat": "mods",
   "ver": "26.3",
   "edition": "JAVA",
-  "loader": "FORGE",
+  "loader": "FABRIC",
   "compat": "26.3",
   "em": "creeper",
   "c1": "#ff2a3d",
