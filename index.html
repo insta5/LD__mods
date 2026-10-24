@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
+  <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#06070a">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>LD Add-ons – Minecraft Mods</title>
@@ -443,5 +445,6 @@ try{if(!sessionStorage.getItem("ld_visit")){sessionStorage.setItem("ld_visit",1)
 loadAll().then(function(){route()});
 </script>
   <script src="account-addon.js"></script>
+  <script>if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js")</script>
 </body>
 </html>
